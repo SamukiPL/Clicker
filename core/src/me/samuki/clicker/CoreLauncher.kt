@@ -1,30 +1,30 @@
 package me.samuki.clicker
 
-import com.badlogic.gdx.ApplicationAdapter
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.Game
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import me.samuki.clicker.base.Constants
+import me.samuki.clicker.base.IncomeHandlerImpl
+import me.samuki.clicker.base.interfaces.GameCommunicator
+import me.samuki.clicker.main.MainScreen
 
-class CoreLauncher : ApplicationAdapter() {
-    private lateinit var batch: SpriteBatch
-    private lateinit var img: Texture
+class CoreLauncher(
+        override val batch: SpriteBatch = SpriteBatch(),
+        override val camera: OrthographicCamera = OrthographicCamera()
+) : Game(), GameCommunicator {
 
     override fun create() {
-        batch = SpriteBatch()
-        img = Texture("badlogic.jpg")
-    }
+        camera.setToOrtho(false, Constants.numbers.screen_width, Constants.numbers.screen_height)
+        startIncome()
 
-    override fun render() {
-        Gdx.gl.glClearColor(1f, 0f, 0f, 1f)
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        batch.begin()
-        batch.draw(img, 0f, 0f)
-        batch.end()
+        this.setScreen(MainScreen(this))
     }
 
     override fun dispose() {
         batch.dispose()
-        img.dispose()
+    }
+
+    private fun startIncome() {
+        IncomeHandlerImpl
     }
 }

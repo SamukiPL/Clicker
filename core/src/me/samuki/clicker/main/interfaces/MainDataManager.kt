@@ -4,4 +4,5 @@ import me.samuki.clicker.base.interfaces.BaseDataManager
 
 
 interface MainDataManager : BaseDataManager {
+    fun getClickIncomeString(): String
 }

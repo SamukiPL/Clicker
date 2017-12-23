@@ -4,4 +4,5 @@ import me.samuki.clicker.base.interfaces.BaseView
 
 
 interface MainView : BaseView {
+    fun refreshAmount(amountString: String)
 }
