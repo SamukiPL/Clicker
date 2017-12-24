@@ -3,8 +3,7 @@ package me.samuki.clicker.base.interfaces
 
 interface BaseDataManager {
     fun initPrefs()
-    fun loadTextures()
-    fun getTextures()
+    fun loadAnimations()
+    fun loadActors()
     fun loadTexts()
-    fun getTexts()
 }

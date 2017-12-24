@@ -1,13 +1,14 @@
 package me.samuki.clicker.base
 
+import me.samuki.clicker.base.interfaces.BaseSingleton
 import me.samuki.clicker.base.interfaces.SoundsPlayer
 
 
 class SoundsManager : SoundsPlayer {
-    companion object {
+    companion object : BaseSingleton<SoundsPlayer> {
         val INSTANCE: SoundsPlayer = SoundsManager()
 
-        fun getInstance(): SoundsPlayer {
+        override fun getInstance(): SoundsPlayer {
             return INSTANCE
         }
     }

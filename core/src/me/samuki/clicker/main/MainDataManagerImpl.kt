@@ -4,11 +4,17 @@ import com.badlogic.gdx.Preferences
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.interfaces.MainDataManager
-import java.math.BigInteger
+import me.samuki.clicker.models.ActorModel
+import me.samuki.clicker.models.AnimationModel
+import me.samuki.clicker.models.TextModel
 
 
 class MainDataManagerImpl : MainDataManager {
     private lateinit var prefs: Preferences
+    val creatorHelper: MainCreatorHelper = MainCreatorHelper()
+    val animations: List<AnimationModel> = ArrayList()
+    val textures: List<ActorModel> = ArrayList()
+    val texts: List<TextModel> = ArrayList()
 
     init {
         initPrefs()
@@ -18,20 +24,16 @@ class MainDataManagerImpl : MainDataManager {
         prefs = SharedPrefs.getInstance().prefs
     }
 
-    override fun loadTextures() {
-
+    override fun loadAnimations() {
+        animations.toMutableList().addAll(creatorHelper.createAnimations())
     }
 
-    override fun getTextures() {
-
+    override fun loadActors() {
+        textures.toMutableList().addAll(creatorHelper.createActorsModels())
     }
 
     override fun loadTexts() {
-
-    }
-
-    override fun getTexts() {
-
+        texts.toMutableList().addAll(creatorHelper.createTextModels())
     }
 
     override fun getClickIncomeString(): String {
