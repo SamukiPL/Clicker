@@ -8,12 +8,13 @@ import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.GameCommunicator
 import me.samuki.clicker.main.MainScreen
 
-class CoreLauncher(
-        override val batch: SpriteBatch = SpriteBatch(),
-        override val camera: OrthographicCamera = OrthographicCamera()
-) : Game(), GameCommunicator {
+class CoreLauncher() : Game(), GameCommunicator {
+    override lateinit var batch: SpriteBatch
+    override lateinit var camera: OrthographicCamera
 
     override fun create() {
+        batch = SpriteBatch()
+        camera = OrthographicCamera()
         camera.setToOrtho(false, Constants.numbers.screen_width, Constants.numbers.screen_height)
         startIncome()
 

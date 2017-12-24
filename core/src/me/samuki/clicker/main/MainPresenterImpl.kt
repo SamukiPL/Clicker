@@ -6,24 +6,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.IncomeHandler
 import me.samuki.clicker.main.interfaces.MainDataManager
+import me.samuki.clicker.main.interfaces.MainListeners
 import me.samuki.clicker.main.interfaces.MainPresenter
 import me.samuki.clicker.main.interfaces.MainView
 import java.math.BigInteger
 
 
-class MainPresenterImpl : MainPresenter {
+class MainPresenterImpl : MainPresenter, MainListeners {
     private var view: MainView? = null
-    private var dataManager: MainDataManager = MainDataManagerImpl()
+    private var dataManager: MainDataManager = MainDataManagerImpl(this)
     lateinit var incomeHandler: IncomeHandler
-    lateinit var clickIncome: BigInteger
-
-    init {
-        initClickIncome()
-    }
-
-    private fun initClickIncome() {
-        clickIncome = BigInteger(dataManager.getClickIncomeString())
-    }
 
     override fun attachView(view: MainView) {
         this.view = view
@@ -34,14 +26,18 @@ class MainPresenterImpl : MainPresenter {
         view = null
     }
 
-    override fun setClickIncomeListener(actor: Actor) {
-        actor.addListener(clickIncomeListener())
+    override fun loadEverything() {
+        dataManager.loadAnimations()
+        dataManager.loadActors()
+        view?.addActorsToStage(dataManager.actors)
+        dataManager.loadTexts()
+        view?.addTextsToRender(dataManager.texts)
     }
 
-    private fun clickIncomeListener(): EventListener {
+    override fun clickIncomeListener(): EventListener {
         return object: ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
-                incomeHandler.addClickIncome(clickIncome)
+                incomeHandler.addClickIncome()
                 view?.refreshAmount(incomeHandler.getAmountString())
             }
         }

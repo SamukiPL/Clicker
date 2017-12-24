@@ -1,20 +1,22 @@
 package me.samuki.clicker.main
 
 import com.badlogic.gdx.Preferences
-import me.samuki.clicker.base.Constants
+import com.badlogic.gdx.scenes.scene2d.Actor
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.interfaces.MainDataManager
+import me.samuki.clicker.main.interfaces.MainListeners
 import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
 
 
-class MainDataManagerImpl : MainDataManager {
+class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
+
     private lateinit var prefs: Preferences
-    val creatorHelper: MainCreatorHelper = MainCreatorHelper()
-    val animations: List<AnimationModel> = ArrayList()
-    val textures: List<ActorModel> = ArrayList()
-    val texts: List<TextModel> = ArrayList()
+    private val creatorHelper: MainCreatorHelper = MainCreatorHelper(listeners)
+    val animations: MutableList<AnimationModel> = ArrayList()
+    override val actors: MutableList<Actor?> = ArrayList()
+    override val texts: MutableList<TextModel> = ArrayList()
 
     init {
         initPrefs()
@@ -25,18 +27,18 @@ class MainDataManagerImpl : MainDataManager {
     }
 
     override fun loadAnimations() {
-        animations.toMutableList().addAll(creatorHelper.createAnimations())
+        animations.addAll(creatorHelper.createAnimations())
     }
 
     override fun loadActors() {
-        textures.toMutableList().addAll(creatorHelper.createActorsModels())
+        actors.addAll(creatorHelper.createActorsModels())
     }
 
     override fun loadTexts() {
-        texts.toMutableList().addAll(creatorHelper.createTextModels())
+        texts.addAll(creatorHelper.createTextModels())
     }
 
-    override fun getClickIncomeString(): String {
-        return prefs.getString(Constants.prefs.click_income, "0")
+    override fun getClickUpgradeShop(): List<ActorModel> {
+        return emptyList()
     }
 }

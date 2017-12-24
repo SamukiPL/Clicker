@@ -1,15 +1,13 @@
 package me.samuki.clicker.base
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.scenes.scene2d.Actor
-import com.badlogic.gdx.scenes.scene2d.EventListener
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.interfaces.BaseSingleton
 import me.samuki.clicker.base.interfaces.IncomeHandler
 import me.samuki.clicker.models.UpgradeModel
 import java.lang.Thread.sleep
 import java.math.BigInteger
+import java.util.*
 
 
 class IncomeHandlerImpl private constructor() : IncomeHandler {
@@ -24,10 +22,12 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
     lateinit var upgrades: List<UpgradeModel>
     lateinit var amount: BigInteger
     lateinit var income: BigInteger
+    lateinit var clickIncome: BigInteger
 
     init {
         initAmount()
         initIncome()
+        initClickIncome()
         initUpgrades()
         handleIncomeLoop()
     }
@@ -37,7 +37,11 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
     }
 
     private fun initIncome() {
-        income = BigInteger("5")//BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.income, "0"))
+        income = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.income, "0"))
+    }
+
+    private fun initClickIncome() {
+        clickIncome = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.click_income, "1"))
     }
 
     private fun initUpgrades() {
@@ -49,7 +53,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
                         .replace(Constants.replace_mark, x.toString())
                 val prefsName: String = Constants.prefs.upgrades_bought
                         .replace(Constants.replace_mark, x.toString())
-                upgrades.toMutableList().add(UpgradeModel(x, upgrade.name,
+                upgrades.toMutableList().add(UpgradeModel(ModelTypes.UPGRADE_MODEL, x, upgrade.name,
                         SharedPrefs.getInstance().prefs.getInteger(prefsName, 0), upgrade.income, path))
                 x++
             }
@@ -66,26 +70,17 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
                 .replace(Constants.replace_mark, index.toString()), amount)
     }
 
-    override fun addClickIncome(clickIncome: BigInteger) {
+    override fun addClickIncome() {
         amount += clickIncome
     }
 
     private fun handleIncomeLoop() {
-        Thread(Runnable {
-            kotlin.run {
-                Gdx.app.postRunnable({
-                    kotlin.run {
-                        var x = 0
-                        while (x < 3600) {
-                            sleep(1000)
-                            amount += income
-                            System.out.println(amount.toString())
-                            x++
-                        }
-                        handleIncomeLoop()
+        Timer().scheduleAtFixedRate(object: TimerTask() {
+                    override fun run() {
+                        amount += income
+                        System.out.println(amount.toString())
                     }
-                })
-            }
-        }).start()
+
+                }, 1000L, 1000L)
     }
 }
