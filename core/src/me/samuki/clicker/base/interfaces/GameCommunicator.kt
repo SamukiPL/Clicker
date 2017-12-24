@@ -5,6 +5,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
 
 interface GameCommunicator {
-    val batch: SpriteBatch
-    val camera: OrthographicCamera
+    var batch: SpriteBatch
+    var camera: OrthographicCamera
 }

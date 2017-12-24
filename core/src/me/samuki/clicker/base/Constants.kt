@@ -4,9 +4,18 @@ import me.samuki.clicker.models.UpgradeModel
 
 
 class Constants {
-    class strings {
+
+    class texts {
         companion object {
 
+        }
+    }
+
+    class strings {
+        companion object {
+            val actor_up: String = "up"
+            val actor_down: String = "down"
+            val actor_checked: String = "checked"
         }
     }
 

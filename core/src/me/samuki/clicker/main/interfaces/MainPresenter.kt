@@ -5,5 +5,5 @@ import me.samuki.clicker.base.interfaces.BasePresenter
 
 
 interface MainPresenter : BasePresenter<MainView> {
-    fun setClickIncomeListener(actor: Actor)
+    fun loadEverything()
 }
