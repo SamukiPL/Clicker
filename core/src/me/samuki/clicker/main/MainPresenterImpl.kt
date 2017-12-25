@@ -27,11 +27,9 @@ class MainPresenterImpl : MainPresenter, MainListeners {
     }
 
     override fun loadEverything() {
-        dataManager.loadAnimations()
-        dataManager.loadActors()
-        view?.addActorsToStage(dataManager.actors)
-        dataManager.loadTexts()
-        view?.addTextsToRender(dataManager.texts)
+        view?.addAnimationsToRender(dataManager.loadAnimations())
+        view?.addActorsToStage(dataManager.loadActors())
+        view?.addTextsToRender(dataManager.loadTexts())
     }
 
     override fun clickIncomeListener(): EventListener {

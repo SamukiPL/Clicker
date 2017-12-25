@@ -53,7 +53,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
                         .replace(Constants.replace_mark, x.toString())
                 val prefsName: String = Constants.prefs.upgrades_bought
                         .replace(Constants.replace_mark, x.toString())
-                upgrades.toMutableList().add(UpgradeModel(ModelTypes.UPGRADE_MODEL, x, upgrade.name,
+                upgrades.toMutableList().add(UpgradeModel(x, upgrade.name,
                         SharedPrefs.getInstance().prefs.getInteger(prefsName, 0), upgrade.income, path))
                 x++
             }

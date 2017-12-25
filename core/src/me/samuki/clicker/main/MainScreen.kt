@@ -10,12 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.FitViewport
 import me.samuki.clicker.base.Constants
+import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.SoundsManager
 import me.samuki.clicker.base.interfaces.GameCommunicator
 import me.samuki.clicker.base.interfaces.SoundsPlayer
 import me.samuki.clicker.main.interfaces.MainPresenter
 import me.samuki.clicker.main.interfaces.MainView
+import me.samuki.clicker.models.ActorModel
+import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
+import me.samuki.clicker.models.TextureModel
 
 
 class MainScreen(val game: GameCommunicator) : Screen, MainView {
@@ -25,9 +29,13 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     private lateinit var sounds: SoundsPlayer
     private lateinit var font: BitmapFont
 
-    private val textsToRender: List<TextModel> = ArrayList()
+    private val animationsToRender: MutableList<AnimationModel> = ArrayList()
+    private val textsToRender: MutableList<TextModel> = ArrayList()
+    private val texturesToRender: MutableList<TextureModel> = ArrayList()
 
     private var batch: SpriteBatch = game.batch
+
+    private var stateTime: Float = 0F
 
     private fun initViewport() {
         viewport = FitViewport(Constants.numbers.screen_width, Constants.numbers.screen_height, game.camera)
@@ -43,6 +51,10 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         sounds = SoundsManager.getInstance()
     }
 
+    private fun initFont() {
+        font = BitmapFont(Gdx.files.internal(Constants.paths.basic_font), false)
+    }
+
     override fun hide() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -52,18 +64,22 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         initViewport()
         initStage()
         initSounds()
+        initFont()
         presenter.loadEverything()
     }
 
     override fun render(delta: Float) {
         Gdx.gl.glClearColor(0.5F, 0.5F, 0.5F, 1F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-
-        batch.begin()
-        batch.end()
+        stateTime += Gdx.graphics.deltaTime
 
         stage.act(Math.min(Gdx.graphics.deltaTime, 1/30f))
         stage.draw()
+
+        batch.begin()
+        renderAnimations()
+        renderTexts()
+        batch.end()
     }
 
     override fun pause() {
@@ -80,6 +96,7 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
 
     override fun dispose() {
         stop()
+        font.dispose()
     }
 
     override fun start() {
@@ -92,14 +109,21 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun refreshAmount(amountString: String) {
-        TODO("Łukasz weź się do roboty!")
+        textsToRender[0].text = IncomeHandlerImpl.getInstance().getAmountString()
+    }
+
+    override fun renderAnimations() {
+        for (animation: AnimationModel in animationsToRender) {
+            batch.draw(animation.getCurrentFrame(stateTime), animation.positionX, animation.positionY,
+                    animation.getWidthAfterScale(), animation.getHeightAfterScale())
+        }
     }
 
     override fun renderTexts() {
         for (textModel in textsToRender) {
             font.data.setScale(textModel.scale)
             font.color = textModel.color
-            font.draw(batch, textModel.text, textModel.positionX, textModel.positionY)
+            font.draw(batch, textModel.text, textModel.getPositionXWithOffset(font), textModel.positionY)
         }
     }
 
@@ -107,17 +131,25 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         TODO("Łukasz weź się do roboty!")
     }
 
-    override fun renderImages() {
+    override fun renderTextures() {
         TODO("Łukasz weź się do roboty!")
+    }
+
+    override fun addAnimationToRender(animation: AnimationModel) {
+        TODO("Łukasz weź się do roboty!")
+    }
+
+    override fun addAnimationsToRender(animations: List<AnimationModel>) {
+        animationsToRender.addAll(animations)
     }
 
     override fun addActorToStage(actor: Actor?) {
         TODO("Łukasz weź się do roboty!")
     }
 
-    override fun addActorsToStage(actors: List<Actor?>) {
-        for (actor in actors) {
-            stage.addActor(actor)
+    override fun addActorsToStage(actors: List<ActorModel>) {
+        for (actorModel in actors) {
+            stage.addActor(actorModel.getActorFromModel())
         }
     }
 
@@ -126,6 +158,14 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun addTextsToRender(textModelList: List<TextModel>) {
-        textsToRender.toMutableList().addAll(textModelList)
+        textsToRender.addAll(textModelList)
+    }
+
+    override fun addTextureToRender(texture: TextureModel) {
+        TODO("Łukasz weź się do roboty!")
+    }
+
+    override fun addTexturesToRender(textures: List<TextureModel>) {
+        texturesToRender.addAll(textures)
     }
 }

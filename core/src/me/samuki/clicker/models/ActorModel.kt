@@ -7,15 +7,15 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.enums.ModelTypes
-import me.samuki.clicker.base.interfaces.BaseModel
+import me.samuki.clicker.base.BaseModel
 
 
 class ActorModel(
-        override var type: ModelTypes,
         val actorType: ActorTypes = ActorTypes.ACTOR_TYPE,
         var texturePathUp: String = Constants.paths.no_image_found,
         var texturePathDown: String = Constants.paths.no_image_found,
-        var texturePathChecked: String = Constants.paths.no_image_found,
+        var texturePathChecked: String = "",
+        var buttonText: String = "",
         var boundX: Float = 0F,
         var boundY: Float = 0F,
         var positionX: Float = 0F,
@@ -30,13 +30,17 @@ class ActorModel(
             TEXT_BUTTON_TYPE
         }
     }
+    override var type: ModelTypes = ModelTypes.ACTOR_MODEL
 
     var skin: Skin = Skin()
 
     init {
         skin.add(Constants.strings.actor_up, Texture(texturePathUp))
         skin.add(Constants.strings.actor_down, Texture(texturePathDown))
-        skin.add(Constants.strings.actor_checked, Texture(texturePathChecked))
+        if (!texturePathChecked.isEmpty())
+            skin.add(Constants.strings.actor_checked, Texture(texturePathChecked))
+        else
+            skin.add(Constants.strings.actor_checked, Texture(texturePathUp))
     }
 
     fun getActorFromModel(): Actor? {

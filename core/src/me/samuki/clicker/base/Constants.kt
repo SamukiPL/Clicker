@@ -23,13 +23,21 @@ class Constants {
         companion object {
             val screen_width: Float = 768F
             val screen_height: Float = 1366F
+            val pierdolce_cols: Int = 1
+            val pierdolce_rows: Int = 2
         }
     }
 
     class paths {
         companion object {
+            val basic_font: String = "fonts/font.fnt"
             val no_image_found: String = "no_image.png"
+            val click_income_invisible_texture: String = "textures/click_income_invisible_texture.png"
             val base_upgrade_texture_path: String = "textures/upgrades/upgrade_" + replace_mark + ".png"
+            //Main Screen
+            val main_screen_path: String = "textures/mainscreen/"
+            val pierdolce: String = main_screen_path + "pierdolce.png"
+            val trombone: String = main_screen_path + "pierdolce.png"
         }
     }
 

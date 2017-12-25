@@ -1,4 +1,4 @@
-package me.samuki.clicker.base.interfaces
+package me.samuki.clicker.base
 
 import me.samuki.clicker.base.enums.ModelTypes
 
