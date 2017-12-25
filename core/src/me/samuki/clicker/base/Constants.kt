@@ -37,7 +37,9 @@ class Constants {
             //Main Screen
             val main_screen_path: String = "textures/mainscreen/"
             val pierdolce: String = main_screen_path + "pierdolce.png"
-            val trombone: String = main_screen_path + "pierdolce.png"
+            val trombone: String = main_screen_path + "trombone.png"
+            val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
+            val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
         }
     }
 

@@ -2,6 +2,7 @@ package me.samuki.clicker.main
 
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.IncomeHandler
@@ -30,6 +31,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
         view?.addAnimationsToRender(dataManager.loadAnimations())
         view?.addActorsToStage(dataManager.loadActors())
         view?.addTextsToRender(dataManager.loadTexts())
+        view?.addShopShowcase(dataManager.getShopShowcase())
     }
 
     override fun clickIncomeListener(): EventListener {
@@ -37,6 +39,14 @@ class MainPresenterImpl : MainPresenter, MainListeners {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 incomeHandler.addClickIncome()
                 view?.refreshAmount(incomeHandler.getAmountString())
+            }
+        }
+    }
+
+    override fun showHideShowcaseListener(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.showHideShowcase(actor as Button)
             }
         }
     }

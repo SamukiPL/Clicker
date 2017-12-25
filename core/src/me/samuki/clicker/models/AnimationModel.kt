@@ -5,16 +5,21 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
 import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.BaseModel
+import me.samuki.clicker.base.Constants
 
 
 class AnimationModel(
         private val animation:  Animation<TextureRegion>,
-        val positionX: Float = 0F,
-        val positionY: Float = 0F,
-        val scale: Int = 0
+        var positionX: Float = 0F,
+        var positionY: Float = 0F,
+        private val scale: Int = 0
 ) : BaseModel() {
     override var type: ModelTypes = ModelTypes.ANIMATION_MODEL
     lateinit var textureRegion: TextureRegion
+
+    init {
+        textureRegion = animation.getKeyFrame(0F, true)
+    }
 
     fun getCurrentFrame(stateTime: Float):TextureRegion {
         textureRegion = animation.getKeyFrame(stateTime, true)
@@ -27,5 +32,13 @@ class AnimationModel(
 
     fun getHeightAfterScale(): Float {
         return (textureRegion.regionHeight * scale).toFloat()
+    }
+
+    fun centerPositionX() {
+        positionX = (Constants.numbers.screen_width / 2) - ((textureRegion.regionWidth * scale) / 2)
+    }
+
+    fun centerPositionY() {
+        positionY = (Constants.numbers.screen_height / 2) - ((textureRegion.regionHeight * scale) / 2)
     }
 }

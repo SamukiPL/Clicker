@@ -3,10 +3,17 @@ package me.samuki.clicker.main
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.graphics.GL20
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence
+import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
+import com.badlogic.gdx.scenes.scene2d.ui.*
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.FitViewport
 import me.samuki.clicker.base.Constants
@@ -20,6 +27,9 @@ import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
 import me.samuki.clicker.models.TextureModel
+import com.badlogic.gdx.scenes.scene2d.ui.Table
+
+
 
 
 class MainScreen(val game: GameCommunicator) : Screen, MainView {
@@ -36,6 +46,8 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     private var batch: SpriteBatch = game.batch
 
     private var stateTime: Float = 0F
+
+    private lateinit var shopShowcase: ScrollPane
 
     private fun initViewport() {
         viewport = FitViewport(Constants.numbers.screen_width, Constants.numbers.screen_height, game.camera)
@@ -73,13 +85,13 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         stateTime += Gdx.graphics.deltaTime
 
-        stage.act(Math.min(Gdx.graphics.deltaTime, 1/30f))
-        stage.draw()
-
         batch.begin()
         renderAnimations()
         renderTexts()
         batch.end()
+
+        stage.act(Math.min(Gdx.graphics.deltaTime, 1/30f))
+        stage.draw()
     }
 
     override fun pause() {
@@ -110,6 +122,27 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
 
     override fun refreshAmount(amountString: String) {
         textsToRender[0].text = IncomeHandlerImpl.getInstance().getAmountString()
+    }
+
+    override fun showHideShowcase(button: Button) {
+        if (button.isChecked) {
+            button.clearActions()
+            stage.addActor(shopShowcase)
+            button.addAction(Actions.moveTo(0F, 600F, 0.5F))
+            shopShowcase.addAction(Actions.moveTo(0F, 0F, 0.5F))
+        }
+        else {
+            button.clearActions()
+            button.addAction(Actions.moveTo(0F, 0F, 0.5F))
+            val run = RunnableAction()
+            run.runnable = Runnable { shopShowcase.remove() }
+            shopShowcase.addAction(sequence(Actions.moveTo(0F, -shopShowcase.height - 10, 0.5F), run))
+        }
+
+    }
+
+    override fun addShopShowcase(scrollPane: ScrollPane) {
+        this.shopShowcase = scrollPane
     }
 
     override fun renderAnimations() {

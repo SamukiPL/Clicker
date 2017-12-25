@@ -4,6 +4,7 @@ import com.badlogic.gdx.Preferences
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g3d.Model
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.interfaces.MainDataManager
 import me.samuki.clicker.main.interfaces.MainListeners
@@ -44,5 +45,9 @@ class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
 
     override fun getClickUpgradeShop(): List<ActorModel> {
         return emptyList()
+    }
+
+    override fun getShopShowcase(): ScrollPane {
+        return creatorHelper.createShopShowcase()
     }
 }
