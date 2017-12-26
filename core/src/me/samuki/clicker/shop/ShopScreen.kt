@@ -31,6 +31,6 @@ class ShopScreen(val game: Game) : Screen, ShopView {
     }
 
     override fun dispose() {
-        TODO("Łukasz weź się do roboty!")
+        TODO("kotlin to ja moge na parówki lać")
     }
 }
