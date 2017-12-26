@@ -34,9 +34,12 @@ class Constants {
             val base_upgrade_texture_path: String = "textures/upgrades/upgrade_" + replace_mark + ".png"
             //Main Screen
             val main_screen_path: String = "textures/mainscreen/"
+            val main_background: String = main_screen_path + "background.png"
             val pierdolce: String = main_screen_path + "pierdolce.png"
-            val trumpet: String = main_screen_path + "trombone.png"
             val trombone: String = main_screen_path + "trombone.png"
+            val trumpet: String = main_screen_path + "Trumpet.png"
+            val flugelhorn: String = main_screen_path + "Flugelhorn.png"
+            val tuba: String = main_screen_path + "Tuba.png"
             val shop_showcase_background: String = main_screen_path + "shop_showcase_background.png"
             val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
@@ -57,8 +60,10 @@ class Constants {
     companion object {
         val replace_mark = "?"
         val upgrades_info: Array<ClickUpgrade> = arrayOf(
-            ClickUpgrade("Trąbka", Constants.paths.trumpet),
-            ClickUpgrade("Puzon", Constants.paths.trombone)
+                ClickUpgrade("Puzon", Constants.paths.trombone),
+                ClickUpgrade("Trąbka", Constants.paths.trumpet),
+                ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn),
+                ClickUpgrade("Tuba", Constants.paths.tuba)
         )
     }
 

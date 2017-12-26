@@ -89,6 +89,7 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         stateTime += Gdx.graphics.deltaTime
 
         batch.begin()
+        renderTextures()
         renderAnimations()
         renderTexts()
         batch.end()
@@ -168,7 +169,9 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun renderTextures() {
-        TODO("Łukasz weź się do roboty!")
+        for (textureModel in texturesToRender) {
+            textureModel.drawFromModel(batch)
+        }
     }
 
     override fun addAnimationToRender(animation: AnimationModel) {

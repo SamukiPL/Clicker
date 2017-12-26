@@ -11,11 +11,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.CreatorHelper
 import me.samuki.clicker.main.interfaces.MainListeners
+import me.samuki.clicker.models.*
 import me.samuki.clicker.models.ActorModel.Companion.ActorTypes
-import me.samuki.clicker.models.ActorModel
-import me.samuki.clicker.models.AnimationModel
-import me.samuki.clicker.models.ClickUpgradeModel
-import me.samuki.clicker.models.TextModel
 
 
 class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
@@ -37,6 +34,12 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         val textsList: MutableList<TextModel> = ArrayList()
         textsList.add(amountText())
         return textsList
+    }
+
+    fun createTexturesModels(): MutableList<TextureModel> {
+        val texturesList: MutableList<TextureModel> = ArrayList()
+        texturesList.add(background())
+        return texturesList
     }
 
     fun createShopShowcase(): ScrollPane {
@@ -82,5 +85,9 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     //Texts
     private fun amountText(): TextModel {
         return TextModel(TextModel.TextTypes.AMOUNT_TEXT, "0", 100F, 1200F)
+    }
+    //Textures
+    private fun background(): TextureModel {
+        return TextureModel(Constants.paths.main_background, 0F, 0F, Constants.numbers.screen_width, Constants.numbers.screen_height)
     }
 }

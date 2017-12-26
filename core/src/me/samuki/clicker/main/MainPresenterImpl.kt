@@ -34,6 +34,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
         view?.addAnimationsToRender(dataManager.loadAnimations())
         view?.addActorsToStage(dataManager.loadActors())
         view?.addTextsToRender(dataManager.loadTexts())
+        view?.addTexturesToRender(dataManager.loadTextures())
         view?.addShopShowcase(dataManager.getShopShowcase())
     }
 

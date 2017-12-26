@@ -40,7 +40,7 @@ class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
     }
 
     override fun loadTextures(): MutableList<TextureModel> {
-        TODO("Łukasz weź się do roboty!")
+        return creatorHelper.createTexturesModels()
     }
 
     override fun getClickUpgradeShop(): List<ActorModel> {
