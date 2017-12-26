@@ -33,11 +33,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 
 
 class MainScreen(val game: GameCommunicator) : Screen, MainView {
+    companion object {
+        lateinit var font: BitmapFont
+    }
+
     private lateinit var presenter: MainPresenter
     private lateinit var stage: Stage
     private lateinit var viewport: FitViewport
     private lateinit var sounds: SoundsPlayer
-    private lateinit var font: BitmapFont
 
     private val animationsToRender: MutableList<AnimationModel> = ArrayList()
     private val textsToRender: MutableList<TextModel> = ArrayList()

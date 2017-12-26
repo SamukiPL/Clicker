@@ -1,11 +1,8 @@
 package me.samuki.clicker.base
 
-import com.badlogic.gdx.Gdx
-import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.interfaces.BaseSingleton
 import me.samuki.clicker.base.interfaces.IncomeHandler
 import me.samuki.clicker.models.UpgradeModel
-import java.lang.Thread.sleep
 import java.math.BigInteger
 import java.util.*
 
@@ -45,19 +42,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
     }
 
     private fun initUpgrades() {
-        upgrades = ArrayList()
-        var x: Int = 0
-        Constants.upgrades_info.forEach {
-            upgrade -> run {
-                val path: String = Constants.paths.base_upgrade_texture_path
-                        .replace(Constants.replace_mark, x.toString())
-                val prefsName: String = Constants.prefs.upgrades_bought
-                        .replace(Constants.replace_mark, x.toString())
-                upgrades.toMutableList().add(UpgradeModel(x, upgrade.name,
-                        SharedPrefs.getInstance().prefs.getInteger(prefsName, 0), upgrade.income, path))
-                x++
-            }
-        }
+
     }
 
     override fun getAmountString(): String {
@@ -66,7 +51,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
 
     override fun refreshUpgrade(index: Int, amount: Int) {
         upgrades[index].amount = amount
-        SharedPrefs.getInstance().prefs.putInteger(Constants.prefs.upgrades_bought
+        SharedPrefs.getInstance().prefs.putInteger(Constants.prefs.click_upgrades_bought
                 .replace(Constants.replace_mark, index.toString()), amount)
     }
 

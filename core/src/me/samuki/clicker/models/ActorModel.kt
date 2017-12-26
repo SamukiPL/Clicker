@@ -1,13 +1,17 @@
 package me.samuki.clicker.models
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.BaseModel
+import me.samuki.clicker.main.MainScreen
 
 
 class ActorModel(
@@ -52,7 +56,13 @@ class ActorModel(
                         skin.getDrawable(Constants.strings.actor_checked))
             }
             ActorTypes.IMAGE_BUTTON_TYPE -> {}
-            ActorTypes.TEXT_BUTTON_TYPE -> {}
+            ActorTypes.TEXT_BUTTON_TYPE -> {
+                actor = TextButton(buttonText, TextButton.TextButtonStyle(
+                        skin.getDrawable(Constants.strings.actor_up),
+                        skin.getDrawable(Constants.strings.actor_down),
+                        skin.getDrawable(Constants.strings.actor_checked),
+                        MainScreen.font))
+            }
             else -> {
                 actor = Actor()
             }

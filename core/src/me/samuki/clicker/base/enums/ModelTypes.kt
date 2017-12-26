@@ -6,5 +6,6 @@ enum class ModelTypes {
     ACTOR_MODEL,
     ANIMATION_MODEL,
     TEXTURE_MODEL,
+    CLICK_UPGRADE_MODEL,
     UPGRADE_MODEL
 }

@@ -1,7 +1,5 @@
 package me.samuki.clicker.base
 
-import me.samuki.clicker.models.UpgradeModel
-
 
 class Constants {
 
@@ -37,7 +35,9 @@ class Constants {
             //Main Screen
             val main_screen_path: String = "textures/mainscreen/"
             val pierdolce: String = main_screen_path + "pierdolce.png"
+            val trumpet: String = main_screen_path + "trombone.png"
             val trombone: String = main_screen_path + "trombone.png"
+            val shop_showcase_background: String = main_screen_path + "shop_showcase_background.png"
             val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
         }
@@ -49,18 +49,18 @@ class Constants {
             val amount: String = "amount"
             val income: String = "income"
             val click_income: String = "click_income"
-            val upgrades_bought: String = "upgrade_no_" + replace_mark
+            val click_upgrades_bought: String = "click_upgrade_no_" + replace_mark
             val sounds_volume: String = "volume"
         }
     }
 
     companion object {
         val replace_mark = "?"
-        val upgrades_info: Array<Upgrade> = arrayOf(
-            Upgrade("Trąbka", 1),
-            Upgrade("Puzon", 5)
+        val upgrades_info: Array<ClickUpgrade> = arrayOf(
+            ClickUpgrade("Trąbka", Constants.paths.trumpet),
+            ClickUpgrade("Puzon", Constants.paths.trombone)
         )
     }
 
-    class Upgrade(var name: String, var income: Int)
+    class ClickUpgrade(var name: String, var texturePath: String)
 }

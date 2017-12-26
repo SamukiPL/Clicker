@@ -1,16 +1,20 @@
 package me.samuki.clicker.main
 
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
+import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.CreatorHelper
 import me.samuki.clicker.main.interfaces.MainListeners
 import me.samuki.clicker.models.ActorModel.Companion.ActorTypes
 import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
+import me.samuki.clicker.models.ClickUpgradeModel
 import me.samuki.clicker.models.TextModel
 
 
@@ -38,22 +42,15 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     fun createShopShowcase(): ScrollPane {
         var table = Table()
         var x = 0
-        while (x++ < 10) {
-            val group = WidgetGroup()
-            group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.no_image_found,
-                    Constants.paths.click_income_invisible_texture,
-                    boundX = 200F, boundY = 200F).getActorFromModel())
-            group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.no_image_found,
-                    Constants.paths.click_income_invisible_texture,
-                    boundX = 100F, boundY = 100F, positionX = 200F).getActorFromModel())
-            group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.no_image_found,
-                    Constants.paths.click_income_invisible_texture,
-                    boundX = 100F, boundY = 100F, positionX = 200F, positionY = 100F).getActorFromModel())
+        while (x < Constants.upgrades_info.size) {
+            val group = ClickUpgradeModel(x, listeners).getUpgradeWidgetGroup()
             table.add(group).size(300F, 200F)
             table.row()
+            x++
         }
 
         val scrollPane = ScrollPane(table)
+        scrollPane.style.background = Image(Texture(Constants.paths.shop_showcase_background)).drawable
         scrollPane.setScrollingDisabled(true, false)
         scrollPane.width = Constants.numbers.screen_width
         scrollPane.height = 600F

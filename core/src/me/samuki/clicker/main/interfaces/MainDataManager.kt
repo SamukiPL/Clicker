@@ -8,4 +8,5 @@ import me.samuki.clicker.models.ActorModel
 interface MainDataManager : BaseDataManager {
     fun getClickUpgradeShop(): List<ActorModel>
     fun getShopShowcase(): ScrollPane
+
 }
