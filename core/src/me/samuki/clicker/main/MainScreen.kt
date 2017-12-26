@@ -89,7 +89,6 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         stateTime += Gdx.graphics.deltaTime
 
         batch.begin()
-        renderTextures()
         renderAnimations()
         renderTexts()
         batch.end()
@@ -125,7 +124,7 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun refreshAmount(amountString: String) {
-        textsToRender[0].text = IncomeHandlerImpl.getInstance().getAmountString()
+        textsToRender[0].text = amountString
     }
 
     override fun showHideShowcase(button: Button) {
@@ -138,9 +137,7 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         else {
             button.clearActions()
             button.addAction(Actions.moveTo(0F, 0F, 0.5F))
-            val run = RunnableAction()
-            run.runnable = Runnable { shopShowcase.remove() }
-            shopShowcase.addAction(sequence(Actions.moveTo(0F, -shopShowcase.height - 10, 0.5F), run))
+            shopShowcase.addAction(Actions.moveTo(0F, -shopShowcase.height - 10, 0.5F))
         }
 
     }

@@ -4,6 +4,8 @@ import java.math.BigInteger
 
 interface IncomeHandler {
     fun getAmountString(): String
+    fun getAmountBigInteger(): BigInteger
     fun addClickIncome()
-    fun refreshUpgrade(index: Int, amount: Int)
+    fun subtractPriceFromAmount(price: BigInteger)
+    fun incrementClicksAmount()
 }

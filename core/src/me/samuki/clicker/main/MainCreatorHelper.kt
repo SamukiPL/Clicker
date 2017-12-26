@@ -79,7 +79,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     private fun upgradeShopShowcaseButton(): ActorModel {
         return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.show_shop_showcase,
                 Constants.paths.show_shop_showcase, Constants.paths.hide_shop_showcase,
-                boundX = 100F, boundY = 100F, positionX = 0F, positionY = 0F,
+                boundX = Constants.numbers.screen_width, boundY = 50F, positionX = 0F, positionY = 0F,
                 listener = listeners.showHideShowcaseListener())
     }
     //Texts

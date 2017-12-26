@@ -15,5 +15,8 @@ class SharedPrefs {
     }
     var prefs: Preferences = Gdx.app.getPreferences(Constants.prefs.prefs_name)
 
+    fun flush() {
+        prefs.flush()
+    }
 
 }

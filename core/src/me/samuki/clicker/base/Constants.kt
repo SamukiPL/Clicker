@@ -49,6 +49,7 @@ class Constants {
     class prefs {
         companion object {
             val prefs_name: String = "clicker_prefs"
+            val click_amount: String = "clicks_amount"
             val amount: String = "amount"
             val income: String = "income"
             val click_income: String = "click_income"

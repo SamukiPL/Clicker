@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g3d.Model
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import me.samuki.clicker.base.Constants
+import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.interfaces.MainDataManager
 import me.samuki.clicker.main.interfaces.MainListeners
@@ -12,6 +14,7 @@ import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
 import me.samuki.clicker.models.TextureModel
+import java.math.BigInteger
 
 
 class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
@@ -49,5 +52,9 @@ class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
 
     override fun getShopShowcase(): ScrollPane {
         return creatorHelper.createShopShowcase()
+    }
+
+    override fun saveThisClick() {
+        IncomeHandlerImpl.getInstance().incrementClicksAmount()
     }
 }

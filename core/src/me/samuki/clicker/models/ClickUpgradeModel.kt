@@ -1,10 +1,10 @@
 package me.samuki.clicker.models
 
 import com.badlogic.gdx.scenes.scene2d.Actor
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
-import me.samuki.clicker.base.BaseModel
-import me.samuki.clicker.base.Constants
-import me.samuki.clicker.base.SharedPrefs
+import com.sun.org.apache.xpath.internal.operations.Bool
+import me.samuki.clicker.base.*
 import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.main.interfaces.MainListeners
 import java.math.BigInteger
@@ -16,7 +16,7 @@ class ClickUpgradeModel(
 ) : BaseModel() {
     override var type: ModelTypes = ModelTypes.CLICK_UPGRADE_MODEL
 
-    lateinit var amount: BigInteger
+    var amount: Long = 0L
     lateinit var price: BigInteger
 
     var amountActor: Actor? = null
@@ -25,8 +25,8 @@ class ClickUpgradeModel(
     fun getUpgradeWidgetGroup(): WidgetGroup {
         val name: String = Constants.upgrades_info[id].name
         val path: String = Constants.upgrades_info[id].texturePath
-        amount = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark, id.toString()), "0"))
-        price = BigInteger(getPrice(id, amount.toLong()))
+        amount = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark, id.toString()), 0L)
+        price = BigInteger(getPrice(id, amount))
 
         val group = WidgetGroup()
 
@@ -50,28 +50,53 @@ class ClickUpgradeModel(
         return group
     }
 
-    fun incrementAmount(): String {
-        amount = (amount.add(BigInteger.ONE))
-        return amount.toString()
+    fun checkIfBuyingIsPossible(): Boolean {
+        return price.compareTo(IncomeHandlerImpl.getInstance().getAmountBigInteger()) != 1
+    }
+
+    fun handelBuying() {
+        val id = id
+        val amount: Long = incrementAmount()
+        val price: String = incrementPrice()
+        SharedPrefs.getInstance().prefs.putLong(
+                Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark,
+                        id.toString()), amount)
+        SharedPrefs.getInstance().flush()
+        (amountActor as TextButton).setText(amount.toString())
+        (priceActor as TextButton).setText(price)
+
+        ClickUpgradesHandlerImpl.getInstance().handleClickUpgrade(id, amount)
+    }
+
+    fun incrementAmount(): Long {
+        amount++
+        return amount
     }
 
     fun incrementPrice(): String {
-        getPriceAfterUpgrading(price)
+        price = getPriceAfterUpgrading(price)
         return price.toString()
     }
 
     private fun getPrice(id: Int, amount: Long): String {
         var amountTMP = amount
         var idTMP = id + 1.0
-        var price = Math.pow(10.0, idTMP)
+        var price = BigInteger.valueOf(Math.pow(10.0, idTMP).toLong())
         while (amountTMP-- > 0) {
-            price += price + price/100
+            var priceTMP = BigInteger(price.toString())
+            priceTMP /= BigInteger.valueOf(100L)
+            priceTMP += price
+            priceTMP += price
+            price = priceTMP
         }
         return price.toLong().toString()
     }
 
-    private fun getPriceAfterUpgrading(price: BigInteger){
-        val priceTMP = BigInteger(price.toString())
-        price.add(priceTMP)
+    private fun getPriceAfterUpgrading(price: BigInteger): BigInteger {
+        var priceTMP = BigInteger(price.toString())
+        priceTMP /= BigInteger.valueOf(100L)
+        priceTMP += price
+        priceTMP += price
+        return priceTMP
     }
 }

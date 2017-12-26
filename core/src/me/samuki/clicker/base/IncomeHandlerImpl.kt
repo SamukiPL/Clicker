@@ -16,17 +16,20 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         }
     }
 
-    lateinit var upgrades: List<UpgradeModel>
+    lateinit var clicksAmount: BigInteger
     lateinit var amount: BigInteger
     lateinit var income: BigInteger
-    lateinit var clickIncome: BigInteger
 
     init {
+        initClickAmount()
         initAmount()
         initIncome()
-        initClickIncome()
         initUpgrades()
         handleIncomeLoop()
+    }
+
+    private fun initClickAmount() {
+        clicksAmount = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.click_amount, "0"))
     }
 
     private fun initAmount() {
@@ -37,10 +40,6 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         income = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.income, "0"))
     }
 
-    private fun initClickIncome() {
-        clickIncome = BigInteger(SharedPrefs.getInstance().prefs.getString(Constants.prefs.click_income, "1"))
-    }
-
     private fun initUpgrades() {
 
     }
@@ -49,21 +48,26 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         return amount.toString()
     }
 
-    override fun refreshUpgrade(index: Int, amount: Int) {
-        upgrades[index].amount = amount
-        SharedPrefs.getInstance().prefs.putInteger(Constants.prefs.click_upgrades_bought
-                .replace(Constants.replace_mark, index.toString()), amount)
+    override fun getAmountBigInteger(): BigInteger {
+        return amount
     }
 
     override fun addClickIncome() {
-        amount += clickIncome
+        amount += ClickUpgradesHandlerImpl.getInstance().clickIncome
+    }
+
+    override fun subtractPriceFromAmount(price: BigInteger) {
+        amount -= price
+    }
+
+    override fun incrementClicksAmount() {
+        clicksAmount.add(BigInteger.ONE)
     }
 
     private fun handleIncomeLoop() {
         Timer().scheduleAtFixedRate(object: TimerTask() {
                     override fun run() {
                         amount += income
-                        System.out.println(amount.toString())
                     }
 
                 }, 1000L, 1000L)
