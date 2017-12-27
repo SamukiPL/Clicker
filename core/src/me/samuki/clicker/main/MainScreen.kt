@@ -84,11 +84,11 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun render(delta: Float) {
-        Gdx.gl.glClearColor(0.5F, 0.5F, 0.5F, 1F)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         stateTime += Gdx.graphics.deltaTime
 
         batch.begin()
+        renderTextures()
         renderAnimations()
         renderTexts()
         batch.end()
@@ -131,13 +131,12 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
         if (button.isChecked) {
             button.clearActions()
             stage.addActor(shopShowcase)
-            button.addAction(Actions.moveTo(0F, 600F, 0.5F))
+            button.addAction(Actions.moveTo(0F, 600F, 0.51F))
             shopShowcase.addAction(Actions.moveTo(0F, 0F, 0.5F))
-        }
-        else {
+        } else {
             button.clearActions()
             button.addAction(Actions.moveTo(0F, 0F, 0.5F))
-            shopShowcase.addAction(Actions.moveTo(0F, -shopShowcase.height - 10, 0.5F))
+            shopShowcase.addAction(Actions.moveTo(0F, -shopShowcase.height - 10, 0.51F))
         }
 
     }

@@ -47,7 +47,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         var x = 0
         while (x < Constants.upgrades_info.size) {
             val group = ClickUpgradeModel(x, listeners).getUpgradeWidgetGroup()
-            table.add(group).size(300F, 200F)
+            table.add(group).size(Constants.numbers.screen_width, 200F)
             table.row()
             x++
         }
@@ -65,7 +65,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     private fun pierdolecAnimation(): AnimationModel {
         val animation:  Animation<TextureRegion> = spriteCutting(Constants.paths.pierdolce,
                 Constants.numbers.pierdolce_cols, Constants.numbers.pierdolce_rows, 1F)
-        val animationModel: AnimationModel = AnimationModel(animation, 0F, 0F, 13)
+        val animationModel: AnimationModel = AnimationModel(animation, 0F, 50F, 13)
         animationModel.centerPositionX()
         return animationModel
     }
@@ -78,7 +78,6 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     }
     private fun upgradeShopShowcaseButton(): ActorModel {
         return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.show_shop_showcase,
-                Constants.paths.show_shop_showcase, Constants.paths.hide_shop_showcase,
                 boundX = Constants.numbers.screen_width, boundY = 50F, positionX = 0F, positionY = 0F,
                 listener = listeners.showHideShowcaseListener())
     }

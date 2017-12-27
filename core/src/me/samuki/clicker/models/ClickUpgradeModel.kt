@@ -3,6 +3,7 @@ package me.samuki.clicker.models
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
+import com.badlogic.gdx.utils.Align
 import com.sun.org.apache.xpath.internal.operations.Bool
 import me.samuki.clicker.base.*
 import me.samuki.clicker.base.enums.ModelTypes
@@ -30,21 +31,29 @@ class ClickUpgradeModel(
 
         val group = WidgetGroup()
 
-        group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, path, path,
-                boundX = 200F, boundY = 200F, listener = listeners.buyClickUpgrade(this)).getActorFromModel())
-
+        group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.cell_background,
+                boundX = Constants.numbers.screen_width, boundY = 200F).getActorFromModel())
+        //IMAGE
+        group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, path,
+                boundX = Constants.numbers.instrument_width, boundY = Constants.numbers.instrument_height,
+                positionY = 200F - Constants.numbers.instrument_height, positionX = 20F,
+                listener = listeners.buyClickUpgrade(this)).getActorFromModel())
+        //NAME TEXT
         group.addActor(ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
-                Constants.paths.click_income_invisible_texture, buttonText = name,
-                boundX = 100F, boundY = 100F, positionX = 200F).getActorFromModel())
-
+                Constants.paths.click_income_invisible_texture, buttonText = name, textScale = 0.75F,
+                boundX = Constants.numbers.screen_width - Constants.numbers.instrument_width, textAlign = Align.right,
+                boundY = Constants.numbers.instrument_height, positionX = Constants.numbers.instrument_width - 20F,
+                positionY = 80F).getActorFromModel())
+        //AMOUNT TEXT
         amountActor = ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
-                Constants.paths.click_income_invisible_texture, buttonText = amount.toString(),
-                boundX = 100F, boundY = 100F, positionX = 200F, positionY = 100F).getActorFromModel()
+                Constants.paths.click_income_invisible_texture, buttonText = "Kup Pan", textAlign = Align.right, textScale = 0.5F,
+                boundX = 80F, boundY = 80F, positionX = 500F, positionY = 10F).getActorFromModel()
         group.addActor(amountActor)
-
+        //PRICE TEXT
         priceActor = ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
                 Constants.paths.click_income_invisible_texture, buttonText = price.toString(),
-                boundX = 100F, boundY = 100F, positionX = 300F, positionY = 100F).getActorFromModel()
+                boundX = Constants.numbers.instrument_width, boundY = 80F, textAlign = Align.center,
+                textScale = 0.5F, positionX = 20F, positionY = 10F).getActorFromModel()
         group.addActor(priceActor)
 
         return group

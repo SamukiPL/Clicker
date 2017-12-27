@@ -23,6 +23,8 @@ class Constants {
             val screen_height: Float = 1366F
             val pierdolce_cols: Int = 1
             val pierdolce_rows: Int = 2
+            val instrument_width: Float = 192F
+            val instrument_height: Float = 120F
         }
     }
 
@@ -43,6 +45,7 @@ class Constants {
             val shop_showcase_background: String = main_screen_path + "shop_showcase_background.png"
             val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
+            val cell_background: String = main_screen_path + "cell_background.png"
         }
     }
 

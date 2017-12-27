@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.ui.Button
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
+import com.badlogic.gdx.utils.Align
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.BaseModel
@@ -17,13 +19,15 @@ import me.samuki.clicker.main.MainScreen
 class ActorModel(
         val actorType: ActorTypes = ActorTypes.ACTOR_TYPE,
         var texturePathUp: String = Constants.paths.no_image_found,
-        var texturePathDown: String = Constants.paths.no_image_found,
+        var texturePathDown: String = "",
         var texturePathChecked: String = "",
         var buttonText: String = "",
         var boundX: Float = 0F,
         var boundY: Float = 0F,
         var positionX: Float = 0F,
         var positionY: Float = 0F,
+        var textScale: Float = 1F,
+        var textAlign: Int = Align.left,
         var listener: EventListener? = null
 ) : BaseModel() {
     companion object {
@@ -40,7 +44,10 @@ class ActorModel(
 
     init {
         skin.add(Constants.strings.actor_up, Texture(texturePathUp))
-        skin.add(Constants.strings.actor_down, Texture(texturePathDown))
+        if (!texturePathDown.isEmpty())
+            skin.add(Constants.strings.actor_down, Texture(texturePathDown))
+        else
+            skin.add(Constants.strings.actor_down, Texture(texturePathUp))
         if (!texturePathChecked.isEmpty())
             skin.add(Constants.strings.actor_checked, Texture(texturePathChecked))
         else
@@ -55,13 +62,19 @@ class ActorModel(
                         skin.getDrawable(Constants.strings.actor_down),
                         skin.getDrawable(Constants.strings.actor_checked))
             }
-            ActorTypes.IMAGE_BUTTON_TYPE -> {}
+            ActorTypes.IMAGE_BUTTON_TYPE -> {
+                actor = ImageButton(skin.getDrawable(Constants.strings.actor_up),
+                        skin.getDrawable(Constants.strings.actor_down),
+                        skin.getDrawable(Constants.strings.actor_checked))
+            }
             ActorTypes.TEXT_BUTTON_TYPE -> {
                 actor = TextButton(buttonText, TextButton.TextButtonStyle(
                         skin.getDrawable(Constants.strings.actor_up),
                         skin.getDrawable(Constants.strings.actor_down),
                         skin.getDrawable(Constants.strings.actor_checked),
                         MainScreen.font))
+                actor.label.setFontScale(textScale)
+                actor.label.setAlignment(textAlign)
             }
             else -> {
                 actor = Actor()
@@ -71,6 +84,7 @@ class ActorModel(
         actor?.setPosition(positionX, positionY)
         if (listener != null)
             actor?.addListener(listener)
+        actor?.setOrigin(Align.center)
         return actor
     }
 }
