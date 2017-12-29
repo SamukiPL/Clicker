@@ -42,6 +42,11 @@ class Constants {
             val trumpet: String = main_screen_path + "Trumpet.png"
             val flugelhorn: String = main_screen_path + "Flugelhorn.png"
             val tuba: String = main_screen_path + "Tuba.png"
+            val saxophone: String = main_screen_path + "Saxophone.png"
+            val french_horn: String = main_screen_path + "French-Horn.png"
+            val sousaphone: String = main_screen_path + "Sousaphone.png"
+            val trembita: String = main_screen_path + "Trembita.png"
+            val sniper_rifle: String = main_screen_path + "jfk22nov63.png"
             val shop_showcase_background: String = main_screen_path + "shop_showcase_background.png"
             val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
@@ -64,12 +69,17 @@ class Constants {
     companion object {
         val replace_mark = "?"
         val upgrades_info: Array<ClickUpgrade> = arrayOf(
-                ClickUpgrade("Puzon", Constants.paths.trombone),
-                ClickUpgrade("Trąbka", Constants.paths.trumpet),
-                ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn),
-                ClickUpgrade("Tuba", Constants.paths.tuba)
+                ClickUpgrade("Puzon", Constants.paths.trombone, "100", "1"),
+                ClickUpgrade("Trąbka", Constants.paths.trumpet, "1000", "10"),
+                ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn, "5000", "100"),
+                ClickUpgrade("Tuba", Constants.paths.tuba, "10000", "1000"),
+                ClickUpgrade("Saksofon", Constants.paths.saxophone, "250000", "2500"),
+                ClickUpgrade("Obój", Constants.paths.french_horn, "500000", "5000"),
+                ClickUpgrade("Suzafon", Constants.paths.sousaphone, "1000000", "10000"),
+                ClickUpgrade("Trąbita", Constants.paths.trembita, "2500000", "25000"),
+                ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "5000000", "50000")
         )
     }
 
-    class ClickUpgrade(var name: String, var texturePath: String)
+    class ClickUpgrade(var name: String, var texturePath: String, var price: String, var clickIncome: String)
 }

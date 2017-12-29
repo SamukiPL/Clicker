@@ -57,6 +57,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         scrollPane.setScrollingDisabled(true, false)
         scrollPane.width = Constants.numbers.screen_width
         scrollPane.height = 600F
+        scrollPane.setFadeScrollBars(false)
         scrollPane.setPosition(0F, -scrollPane.height)
         return scrollPane
     }
