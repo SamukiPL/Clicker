@@ -45,7 +45,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
     }
 
     override fun getAmountString(): String {
-        return amount.toString()
+        return BasicMethods.shortenNumber(amount.toString())
     }
 
     override fun getAmountBigInteger(): BigInteger {
@@ -56,8 +56,8 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         amount += ClickUpgradesHandlerImpl.getInstance().clickIncome
     }
 
-    override fun subtractPriceFromAmount(price: BigInteger) {
-        amount -= price
+    override fun subtractPriceFromAmount(price: String) {
+        amount -= BigInteger(BasicMethods.addZerosToString(price))
     }
 
     override fun incrementClicksAmount() {
@@ -68,6 +68,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         Timer().scheduleAtFixedRate(object: TimerTask() {
                     override fun run() {
                         amount += income
+                        amount += BigInteger.valueOf(100000)
                     }
 
                 }, 1000L, 1000L)

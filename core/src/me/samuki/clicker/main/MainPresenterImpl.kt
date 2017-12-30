@@ -5,10 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
-import me.samuki.clicker.base.ClickUpgradesHandlerImpl
-import me.samuki.clicker.base.Constants
-import me.samuki.clicker.base.IncomeHandlerImpl
-import me.samuki.clicker.base.SharedPrefs
+import me.samuki.clicker.base.*
 import me.samuki.clicker.base.interfaces.IncomeHandler
 import me.samuki.clicker.main.interfaces.MainDataManager
 import me.samuki.clicker.main.interfaces.MainListeners
@@ -59,7 +56,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
     override fun buyClickUpgrade(clickUpgradeModel: ClickUpgradeModel): EventListener {
         return object: ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
-                if (clickUpgradeModel.checkIfBuyingIsPossible()) {
+                if (BasicMethods.compareAmountWithPrice(incomeHandler.getAmountBigInteger(), clickUpgradeModel.price)) {
                     incomeHandler.subtractPriceFromAmount(clickUpgradeModel.price)
                     clickUpgradeModel.handelBuying()
                     view?.refreshAmount(incomeHandler.getAmountString())

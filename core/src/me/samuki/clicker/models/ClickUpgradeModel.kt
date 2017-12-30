@@ -18,7 +18,7 @@ class ClickUpgradeModel(
     override var type: ModelTypes = ModelTypes.CLICK_UPGRADE_MODEL
 
     var amount: Long = 0L
-    lateinit var price: BigInteger
+    lateinit var price: String
 
     var amountActor: Actor? = null
     var priceActor: Actor? = null
@@ -27,7 +27,7 @@ class ClickUpgradeModel(
         val name: String = Constants.upgrades_info[id].name
         val path: String = Constants.upgrades_info[id].texturePath
         amount = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark, id.toString()), 0L)
-        price = BigInteger(getPrice(id, amount))
+        price = getPrice(id, amount, Constants.upgrades_info[id].price)
 
         val group = WidgetGroup()
 
@@ -60,7 +60,7 @@ class ClickUpgradeModel(
     }
 
     fun checkIfBuyingIsPossible(): Boolean {
-        return price.compareTo(IncomeHandlerImpl.getInstance().getAmountBigInteger()) != 1
+        return false
     }
 
     fun handelBuying() {
@@ -77,35 +77,48 @@ class ClickUpgradeModel(
         ClickUpgradesHandlerImpl.getInstance().handleClickUpgrade(id, amount)
     }
 
-    fun incrementAmount(): Long {
+    private fun incrementAmount(): Long {
         amount++
         return amount
     }
 
-    fun incrementPrice(): String {
+    private fun incrementPrice(): String {
         price = getPriceAfterUpgrading(price)
-        return price.toString()
+        return price
     }
 
-    private fun getPrice(id: Int, amount: Long): String {
-        var amountTMP = amount
-        var idTMP = id + 1.0
-        var price = BigInteger.valueOf(Math.pow(10.0, idTMP).toLong())
-        while (amountTMP-- > 0) {
-            var priceTMP = BigInteger(price.toString())
-            priceTMP /= BigInteger.valueOf(100L)
-            priceTMP += price
-            priceTMP += price
-            price = priceTMP
+    private fun getPrice(id: Int, amount: Long, basePrice: String): String {
+        val priceString = BasicMethods.shortenNumber(basePrice)
+        var abbreviation: String = ""
+        var priceNumber: Long = 0
+        if (priceString.contains(" ")) {
+            abbreviation = priceString.substring(priceString.indexOf(" ", 0, true), priceString.length)
+            priceNumber = priceString.removeRange(priceString.indexOf(" ", 0, true), priceString.length).toLong()
+        } else {
+            priceNumber = priceString.toLong()
         }
-        return price.toLong().toString()
+        var x = 0
+        while (x < amount) {
+            priceNumber = ((priceNumber * (Constants.numbers.instrument_base_price_multiplier + (Constants.numbers.instrument_incrementation * (id + 1)))) +
+                    (priceNumber * (x / 90))).toLong()
+            println(priceNumber)
+            x++
+        }
+        return BasicMethods.shortenNumberWithAbbreviation(priceNumber, abbreviation)
     }
 
-    private fun getPriceAfterUpgrading(price: BigInteger): BigInteger {
-        var priceTMP = BigInteger(price.toString())
-        priceTMP /= BigInteger.valueOf(100L)
-        priceTMP += price
-        priceTMP += price
-        return priceTMP
+    private fun getPriceAfterUpgrading(price: String): String {
+        var abbreviation: String = ""
+        var priceNumber: Long = 0
+        if (price.contains(" ")) {
+            abbreviation = price.substring(price.indexOf(" ", 0, true), price.length)
+            priceNumber = price.removeRange(price.indexOf(" ", 0, true), price.length).toLong()
+        } else {
+            priceNumber = price.toLong()
+        }
+        priceNumber = ((priceNumber * (Constants.numbers.instrument_base_price_multiplier + (Constants.numbers.instrument_incrementation * (id + 1)))) +
+                (priceNumber * (amount / 90))).toLong()
+
+        return BasicMethods.shortenNumberWithAbbreviation(priceNumber, abbreviation)
     }
 }

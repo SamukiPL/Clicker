@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.GameCommunicator
+import me.samuki.clicker.base.interfaces.communication.SaveListener
 import me.samuki.clicker.main.MainScreen
 
 class CoreLauncher() : Game(), GameCommunicator {

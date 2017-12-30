@@ -6,6 +6,6 @@ interface IncomeHandler {
     fun getAmountString(): String
     fun getAmountBigInteger(): BigInteger
     fun addClickIncome()
-    fun subtractPriceFromAmount(price: BigInteger)
+    fun subtractPriceFromAmount(price: String)
     fun incrementClicksAmount()
 }

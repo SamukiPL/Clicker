@@ -5,7 +5,7 @@ import com.badlogic.gdx.Preferences
 import me.samuki.clicker.base.interfaces.BaseSingleton
 
 
-class SharedPrefs {
+class SharedPrefs private constructor() {
     companion object : BaseSingleton<SharedPrefs> {
         private val INSTANCE: SharedPrefs = SharedPrefs()
 
@@ -13,10 +13,16 @@ class SharedPrefs {
             return INSTANCE
         }
     }
+
     var prefs: Preferences = Gdx.app.getPreferences(Constants.prefs.prefs_name)
 
     fun flush() {
         prefs.flush()
+    }
+
+    fun saveAmount(amount: String) {
+        prefs.putString(Constants.prefs.amount, amount)
+        flush()
     }
 
 }

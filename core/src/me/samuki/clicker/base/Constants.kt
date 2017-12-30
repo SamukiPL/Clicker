@@ -25,6 +25,8 @@ class Constants {
             val pierdolce_rows: Int = 2
             val instrument_width: Float = 192F
             val instrument_height: Float = 120F
+            val instrument_base_price_multiplier: Float = 1.05F
+            val instrument_incrementation: Float = 0.075F
         }
     }
 
@@ -71,8 +73,8 @@ class Constants {
         val upgrades_info: Array<ClickUpgrade> = arrayOf(
                 ClickUpgrade("Puzon", Constants.paths.trombone, "100", "1"),
                 ClickUpgrade("Trąbka", Constants.paths.trumpet, "1000", "10"),
-                ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn, "5000", "100"),
-                ClickUpgrade("Tuba", Constants.paths.tuba, "10000", "1000"),
+                ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn, "50000", "100"),
+                ClickUpgrade("Tuba", Constants.paths.tuba, "100000", "1000"),
                 ClickUpgrade("Saksofon", Constants.paths.saxophone, "250000", "2500"),
                 ClickUpgrade("Obój", Constants.paths.french_horn, "500000", "5000"),
                 ClickUpgrade("Suzafon", Constants.paths.sousaphone, "1000000", "10000"),
