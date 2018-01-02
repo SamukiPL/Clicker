@@ -27,6 +27,8 @@ class Constants {
             val instrument_height: Float = 120F
             val instrument_base_price_multiplier: Float = 1.05F
             val instrument_incrementation: Float = 0.075F
+            val numbers_before_shortening: Int = 6
+            val click_upgrade_divider: Int = 20
         }
     }
 
@@ -64,6 +66,7 @@ class Constants {
             val income: String = "income"
             val click_income: String = "click_income"
             val click_upgrades_bought: String = "click_upgrade_no_" + replace_mark
+            val click_upgrades_income: String = "click_upgrade_income" + replace_mark
             val sounds_volume: String = "volume"
         }
     }

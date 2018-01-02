@@ -2,6 +2,7 @@ package me.samuki.clicker.base
 
 import me.samuki.clicker.base.interfaces.ClickUpgradesHandler
 import me.samuki.clicker.base.interfaces.IncomeHandler
+import sun.security.provider.SHA
 import java.math.BigInteger
 
 
@@ -32,28 +33,22 @@ class ClickUpgradesHandlerImpl : ClickUpgradesHandler {
     }
 
     override fun handleClickUpgrade(id: Int, amount: Long) {
-        when (id) {
-            0 -> tromboneUpdate(amount)
-            1 -> trumpetUpdate(amount)
-            2 -> flugelhornUpdate(amount)
-            3 -> tubaUpdate(amount)
+        val lastIncomeString = SharedPrefs.getInstance().prefs.getString(
+                Constants.prefs.click_upgrades_income.replace(Constants.replace_mark, id.toString()),
+                Constants.upgrades_info[id].clickIncome)
+        var lastIncome = BigInteger(lastIncomeString)
+        if (amount > 0) {
+            var addToIncome = BigInteger(lastIncomeString)
+            addToIncome /= BigInteger.valueOf((Constants.numbers.click_upgrade_divider - (id + 1)).toLong())
+            addToIncome += BigInteger.ONE
+            lastIncome += addToIncome
+            println(lastIncome.toString())
+            SharedPrefs.getInstance().prefs.putString(
+                    Constants.prefs.click_upgrades_income.replace(Constants.replace_mark, id.toString()),
+                    lastIncome.toString())
+            SharedPrefs.getInstance().flush()
         }
+        clickIncome += lastIncome
         saveActualClickIncome()
-    }
-
-    private fun tromboneUpdate(amount: Long) {
-        clickIncome += BigInteger.ONE
-    }
-
-    private fun trumpetUpdate(amount: Long) {
-        clickIncome += BigInteger.valueOf(10L)
-    }
-
-    private fun flugelhornUpdate(amount: Long) {
-        clickIncome += BigInteger.valueOf(100L)
-    }
-
-    private fun tubaUpdate(amount: Long) {
-        clickIncome += BigInteger.valueOf(1000L)
     }
 }

@@ -3,6 +3,7 @@ package me.samuki.clicker
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import me.samuki.clicker.base.BasicMethods
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.GameCommunicator

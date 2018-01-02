@@ -68,7 +68,6 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         Timer().scheduleAtFixedRate(object: TimerTask() {
                     override fun run() {
                         amount += income
-                        amount += BigInteger.valueOf(100000)
                     }
 
                 }, 1000L, 1000L)

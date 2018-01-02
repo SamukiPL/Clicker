@@ -74,7 +74,7 @@ class ClickUpgradeModel(
         (amountActor as TextButton).setText(amount.toString())
         (priceActor as TextButton).setText(price)
 
-        ClickUpgradesHandlerImpl.getInstance().handleClickUpgrade(id, amount)
+        ClickUpgradesHandlerImpl.getInstance().handleClickUpgrade(id, amount - 1)
     }
 
     private fun incrementAmount(): Long {
@@ -90,18 +90,17 @@ class ClickUpgradeModel(
     private fun getPrice(id: Int, amount: Long, basePrice: String): String {
         val priceString = BasicMethods.shortenNumber(basePrice)
         var abbreviation: String = ""
-        var priceNumber: Long = 0
+        var priceNumber: Double = 0.0
         if (priceString.contains(" ")) {
             abbreviation = priceString.substring(priceString.indexOf(" ", 0, true), priceString.length)
-            priceNumber = priceString.removeRange(priceString.indexOf(" ", 0, true), priceString.length).toLong()
+            priceNumber = priceString.removeRange(priceString.indexOf(" ", 0, true), priceString.length).toDouble()
         } else {
-            priceNumber = priceString.toLong()
+            priceNumber = priceString.toDouble()
         }
         var x = 0
         while (x < amount) {
             priceNumber = ((priceNumber * (Constants.numbers.instrument_base_price_multiplier + (Constants.numbers.instrument_incrementation * (id + 1)))) +
-                    (priceNumber * (x / 90))).toLong()
-            println(priceNumber)
+                    (priceNumber * (x / 90))).toDouble()
             x++
         }
         return BasicMethods.shortenNumberWithAbbreviation(priceNumber, abbreviation)
@@ -109,15 +108,15 @@ class ClickUpgradeModel(
 
     private fun getPriceAfterUpgrading(price: String): String {
         var abbreviation: String = ""
-        var priceNumber: Long = 0
+        var priceNumber: Double = 0.0
         if (price.contains(" ")) {
             abbreviation = price.substring(price.indexOf(" ", 0, true), price.length)
-            priceNumber = price.removeRange(price.indexOf(" ", 0, true), price.length).toLong()
+            priceNumber = price.removeRange(price.indexOf(" ", 0, true), price.length).toDouble()
         } else {
-            priceNumber = price.toLong()
+            priceNumber = price.toDouble()
         }
         priceNumber = ((priceNumber * (Constants.numbers.instrument_base_price_multiplier + (Constants.numbers.instrument_incrementation * (id + 1)))) +
-                (priceNumber * (amount / 90))).toLong()
+                (priceNumber * (amount / 90))).toDouble()
 
         return BasicMethods.shortenNumberWithAbbreviation(priceNumber, abbreviation)
     }
