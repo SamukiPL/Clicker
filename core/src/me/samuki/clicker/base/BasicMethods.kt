@@ -25,7 +25,7 @@ class BasicMethods {
         }
 
         fun shortenNumberWithAbbreviation(number: Double, abbreviationText: String): String {
-            var newNumber = df.format(number)
+            var newNumber = df.format(number).replace(",", ".")
             var decimalPart = ""
             if (newNumber.contains(".")) {
                 decimalPart = newNumber.substring(newNumber.indexOf("."))

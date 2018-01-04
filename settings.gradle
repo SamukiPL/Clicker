@@ -1,1 +1,2 @@
+include ':gameserviceshelper'
 include 'android', 'core'
