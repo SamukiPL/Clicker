@@ -3,7 +3,6 @@ package me.samuki.clicker.main
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
 import com.badlogic.gdx.scenes.scene2d.ui.Button
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import me.samuki.clicker.base.*
 import me.samuki.clicker.base.interfaces.IncomeHandler
@@ -22,6 +21,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
     override fun attachView(view: MainView) {
         this.view = view
         incomeHandler = IncomeHandlerImpl.getInstance()
+        incomeHandler.setAmountTextRefresher(view)
     }
 
     override fun detachView() {
@@ -61,6 +61,14 @@ class MainPresenterImpl : MainPresenter, MainListeners {
                     clickUpgradeModel.handelBuying()
                     view?.refreshAmount(incomeHandler.getAmountString())
                 }
+            }
+        }
+    }
+
+    override fun showShopScreen(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.showScreenTransmissionAnimation(actor as Button)
             }
         }
     }

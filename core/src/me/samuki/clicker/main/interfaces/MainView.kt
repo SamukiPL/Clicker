@@ -7,7 +7,7 @@ import me.samuki.clicker.base.interfaces.BaseView
 
 
 interface MainView : BaseView {
-    fun refreshAmount(amountString: String)
     fun addShopShowcase(scrollPane: ScrollPane)
     fun showHideShowcase(button: Button)
+    fun showScreenTransmissionAnimation(button: Button)
 }

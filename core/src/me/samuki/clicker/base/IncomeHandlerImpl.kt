@@ -2,6 +2,7 @@ package me.samuki.clicker.base
 
 import me.samuki.clicker.base.interfaces.BaseSingleton
 import me.samuki.clicker.base.interfaces.IncomeHandler
+import me.samuki.clicker.base.interfaces.communication.AmountTextRefresher
 import me.samuki.clicker.models.UpgradeModel
 import java.math.BigInteger
 import java.util.*
@@ -19,6 +20,7 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
     lateinit var clicksAmount: BigInteger
     lateinit var amount: BigInteger
     lateinit var income: BigInteger
+    private var amountTextRefresher: AmountTextRefresher? = null
 
     init {
         initClickAmount()
@@ -64,10 +66,15 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         clicksAmount.add(BigInteger.ONE)
     }
 
+    override fun setAmountTextRefresher(amountTextRefresher: AmountTextRefresher?) {
+        this.amountTextRefresher = amountTextRefresher
+    }
+
     private fun handleIncomeLoop() {
         Timer().scheduleAtFixedRate(object: TimerTask() {
                     override fun run() {
                         amount += income
+                        amountTextRefresher?.refreshAmount(getAmountString())
                     }
 
                 }, 1000L, 1000L)

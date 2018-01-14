@@ -9,10 +9,18 @@ import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.GameCommunicator
 import me.samuki.clicker.base.interfaces.communication.SaveListener
 import me.samuki.clicker.main.MainScreen
+import me.samuki.clicker.shop.ShopScreen
 
 class CoreLauncher() : Game(), GameCommunicator {
     override lateinit var batch: SpriteBatch
     override lateinit var camera: OrthographicCamera
+
+    companion object {
+        enum class ScreenTypes {
+            MAIN_SCREEN,
+            SHOP_SCREEN
+        }
+    }
 
     override fun create() {
         batch = SpriteBatch()
@@ -29,5 +37,16 @@ class CoreLauncher() : Game(), GameCommunicator {
 
     private fun startIncome() {
         IncomeHandlerImpl
+    }
+
+    override fun changeScreen(screenType: ScreenTypes) {
+        when(screenType) {
+            ScreenTypes.MAIN_SCREEN -> {
+                this.setScreen(MainScreen(this))
+            }
+            ScreenTypes.SHOP_SCREEN -> {
+                this.setScreen(ShopScreen(this))
+            }
+        }
     }
 }

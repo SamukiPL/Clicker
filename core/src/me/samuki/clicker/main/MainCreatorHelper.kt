@@ -28,6 +28,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         val actorsList: MutableList<ActorModel> = ArrayList()
         actorsList.add(mainClickActor())
         actorsList.add(upgradeShopShowcaseButton())
+        actorsList.add(shopIcon())
         return actorsList
     }
 
@@ -82,6 +83,11 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.show_shop_showcase,
                 boundX = Constants.numbers.screen_width, boundY = 50F, positionX = 0F, positionY = 0F,
                 listener = listeners.showHideShowcaseListener())
+    }
+    private fun shopIcon(): ActorModel {
+        return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.shop_icon,
+                boundX = 50F, boundY = 50F, positionX = Constants.numbers.screen_width - 75F, positionY = Constants.numbers.screen_height - 75F,
+                listener = listeners.showShopScreen())
     }
     //Texts
     private fun amountText(): TextModel {

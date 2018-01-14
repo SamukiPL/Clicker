@@ -8,4 +8,5 @@ interface MainListeners {
     fun clickIncomeListener(): EventListener
     fun showHideShowcaseListener(): EventListener
     fun buyClickUpgrade(clickUpgradeModel: ClickUpgradeModel): EventListener
+    fun showShopScreen(): EventListener
 }

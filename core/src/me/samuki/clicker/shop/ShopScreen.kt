@@ -6,9 +6,6 @@ import me.samuki.clicker.shop.interfaces.ShopView
 
 
 class ShopScreen(val game: Game) : Screen, ShopView {
-    override fun hide() {
-        TODO("Łukasz weź się do roboty!")
-    }
 
     override fun show() {
         TODO("Łukasz weź się do roboty!")
@@ -27,6 +24,10 @@ class ShopScreen(val game: Game) : Screen, ShopView {
     }
 
     override fun resize(width: Int, height: Int) {
+        TODO("Łukasz weź się do roboty!")
+    }
+
+    override fun hide() {
         TODO("Łukasz weź się do roboty!")
     }
 

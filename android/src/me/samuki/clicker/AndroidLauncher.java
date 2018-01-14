@@ -111,7 +111,7 @@ public class AndroidLauncher extends AndroidApplication {
 			public void onAdLoaded() {
 				super.onAdLoaded();
 				hideSystemUI();
-				gameViewParams.setMargins(0, 0, 0, 0);
+				gameViewParams.setMargins(0, adSizeInPixels, 0, 0);
 				gameView.setLayoutParams(gameViewParams);
 				adParams.setMargins(0, 0, 0, 0);
 				adView.setLayoutParams(adParams);

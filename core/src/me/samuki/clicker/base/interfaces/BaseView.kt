@@ -1,13 +1,14 @@
 package me.samuki.clicker.base.interfaces
 
 import com.badlogic.gdx.scenes.scene2d.Actor
+import me.samuki.clicker.base.interfaces.communication.AmountTextRefresher
 import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
 import me.samuki.clicker.models.TextureModel
 
 
-interface BaseView {
+interface BaseView : AmountTextRefresher{
     fun start()
     fun stop()
     fun renderAnimations()

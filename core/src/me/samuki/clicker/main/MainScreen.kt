@@ -7,10 +7,12 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.badlogic.gdx.scenes.scene2d.Action
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Group
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
+import com.badlogic.gdx.scenes.scene2d.actions.Actions.run
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence
 import com.badlogic.gdx.scenes.scene2d.actions.RunnableAction
 import com.badlogic.gdx.scenes.scene2d.ui.*
@@ -28,8 +30,7 @@ import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
 import me.samuki.clicker.models.TextureModel
 import com.badlogic.gdx.scenes.scene2d.ui.Table
-
-
+import me.samuki.clicker.CoreLauncher
 
 
 class MainScreen(val game: GameCommunicator) : Screen, MainView {
@@ -71,7 +72,7 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun hide() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun show() {
@@ -106,7 +107,8 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
     }
 
     override fun resize(width: Int, height: Int) {
-
+        game.camera.update()
+        viewport.update(width, height)
     }
 
     override fun dispose() {
@@ -143,6 +145,20 @@ class MainScreen(val game: GameCommunicator) : Screen, MainView {
 
     override fun addShopShowcase(scrollPane: ScrollPane) {
         this.shopShowcase = scrollPane
+    }
+
+    override fun showScreenTransmissionAnimation(button: Button) {
+        button.addAction(Actions.parallel(
+                Actions.moveTo(0F, 0F, 0.2F),
+                Actions.sequence(
+                        Actions.sizeTo(Constants.numbers.screen_width, Constants.numbers.screen_height, 0.2F),
+                        run(Runnable { changeToShopScreen() })
+                )
+        ))
+    }
+
+    private fun changeToShopScreen() {
+        game.changeScreen(CoreLauncher.Companion.ScreenTypes.SHOP_SCREEN)
     }
 
     override fun renderAnimations() {

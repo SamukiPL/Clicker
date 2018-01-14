@@ -39,8 +39,9 @@ class Constants {
             val click_income_invisible_texture: String = "textures/click_income_invisible_texture.png"
             val base_upgrade_texture_path: String = "textures/upgrades/upgrade_" + replace_mark + ".png"
             //Main Screen
-            val main_screen_path: String = "textures/mainscreen/"
+            private val main_screen_path: String = "textures/mainscreen/"
             val main_background: String = main_screen_path + "background.png"
+            val shop_icon: String = main_screen_path + "shop_icon.png"
             val pierdolce: String = main_screen_path + "pierdolce.png"
             val trombone: String = main_screen_path + "trombone.png"
             val trumpet: String = main_screen_path + "Trumpet.png"
@@ -55,6 +56,10 @@ class Constants {
             val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
             val cell_background: String = main_screen_path + "cell_background.png"
+            //Shop Screen
+            private val shop_screen_path: String = "textures/shopscreen/"
+            val shop_background: String = shop_screen_path + "background.png"
+            val close_shop_icon: String = shop_screen_path + "close_icon.png"
         }
     }
 
@@ -84,7 +89,11 @@ class Constants {
                 ClickUpgrade("Trąbita", Constants.paths.trembita, "2500000", "25000"),
                 ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "5000000", "50000")
         )
+        val money_makers: Array<MoneyMaker> = arrayOf(
+
+        )
     }
 
     class ClickUpgrade(var name: String, var texturePath: String, var price: String, var clickIncome: String)
+    class MoneyMaker(var name: String, var texturePath: String, var price: String, var income: String)
 }
