@@ -8,27 +8,27 @@ import me.samuki.clicker.shop.interfaces.ShopView
 class ShopScreen(val game: Game) : Screen, ShopView {
 
     override fun show() {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun render(delta: Float) {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun pause() {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun resume() {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun resize(width: Int, height: Int) {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun hide() {
-        TODO("Łukasz weź się do roboty!")
+        TODO("dlaczego ktos uzyl 'screen' zamiast activity")
     }
 
     override fun dispose() {
