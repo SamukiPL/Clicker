@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.enums.ModelTypes
 import me.samuki.clicker.base.BaseModel
+import me.samuki.clicker.base.BaseScreen
 import me.samuki.clicker.main.MainScreen
 
 
@@ -55,7 +56,7 @@ class ActorModel(
     }
 
     fun getActorFromModel(): Actor? {
-        var actor: Actor? = null
+        var actor: Actor?
         when (this.actorType) {
             ActorTypes.BUTTON_TYPE -> {
                 actor = Button(skin.getDrawable(Constants.strings.actor_up),
@@ -72,7 +73,7 @@ class ActorModel(
                         skin.getDrawable(Constants.strings.actor_up),
                         skin.getDrawable(Constants.strings.actor_down),
                         skin.getDrawable(Constants.strings.actor_checked),
-                        MainScreen.font))
+                        BaseScreen.font))
                 actor.label.setFontScale(textScale)
                 actor.label.setAlignment(textAlign)
             }

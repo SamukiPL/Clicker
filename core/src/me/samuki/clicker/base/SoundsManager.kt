@@ -4,7 +4,7 @@ import me.samuki.clicker.base.interfaces.BaseSingleton
 import me.samuki.clicker.base.interfaces.SoundsPlayer
 
 
-class SoundsManager : SoundsPlayer {
+class SoundsManager private constructor() : SoundsPlayer {
     companion object : BaseSingleton<SoundsPlayer> {
         val INSTANCE: SoundsPlayer = SoundsManager()
 

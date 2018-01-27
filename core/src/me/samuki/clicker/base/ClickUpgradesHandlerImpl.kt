@@ -6,14 +6,12 @@ import sun.security.provider.SHA
 import java.math.BigInteger
 
 
-class ClickUpgradesHandlerImpl : ClickUpgradesHandler {
+class ClickUpgradesHandlerImpl private constructor() : ClickUpgradesHandler {
     companion object {
         private val INSTANCE: ClickUpgradesHandler = ClickUpgradesHandlerImpl()
 
         fun getInstance(): ClickUpgradesHandler = INSTANCE
     }
-
-    private constructor()
 
     init {
         initClickIncome()

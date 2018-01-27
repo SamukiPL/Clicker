@@ -5,5 +5,4 @@ import me.samuki.clicker.base.interfaces.BasePresenter
 
 
 interface MainPresenter : BasePresenter<MainView> {
-    fun loadEverything()
 }
