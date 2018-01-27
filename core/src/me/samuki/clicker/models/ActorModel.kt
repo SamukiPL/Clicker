@@ -1,6 +1,7 @@
 package me.samuki.clicker.models
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.scenes.scene2d.Actor
@@ -29,6 +30,7 @@ class ActorModel(
         var positionY: Float = 0F,
         var textScale: Float = 1F,
         var textAlign: Int = Align.left,
+        var textColor: Color = Color.BLACK,
         var listener: EventListener? = null
 ) : BaseModel() {
     companion object {
@@ -69,11 +71,13 @@ class ActorModel(
                         skin.getDrawable(Constants.strings.actor_checked))
             }
             ActorTypes.TEXT_BUTTON_TYPE -> {
-                actor = TextButton(buttonText, TextButton.TextButtonStyle(
+                val textButtonStyle = TextButton.TextButtonStyle(
                         skin.getDrawable(Constants.strings.actor_up),
                         skin.getDrawable(Constants.strings.actor_down),
                         skin.getDrawable(Constants.strings.actor_checked),
-                        BaseScreen.font))
+                        BaseScreen.font)
+                textButtonStyle.fontColor = textColor
+                actor = TextButton(buttonText, textButtonStyle)
                 actor.label.setFontScale(textScale)
                 actor.label.setAlignment(textAlign)
             }

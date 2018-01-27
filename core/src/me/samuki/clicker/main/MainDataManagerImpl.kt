@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g3d.Model
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.SharedPrefs
@@ -52,6 +53,10 @@ class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
 
     override fun getShopShowcase(): ScrollPane {
         return creatorHelper.createShopShowcase()
+    }
+
+    override fun getRewardedAdDialog(): WidgetGroup {
+        return creatorHelper.createRewardedAdDialog()
     }
 
     override fun saveThisClick() {

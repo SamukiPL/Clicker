@@ -16,13 +16,14 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
 
 import me.samuki.clicker.base.androidcommunication.SaveListenerImpl;
+import me.samuki.clicker.base.interfaces.communication.AndroidAdsCommunicator;
 import me.samuki.clicker.base.interfaces.communication.SaveListener;
 import me.samuki.clicker.interfaces.IGameServicesHelper;
 
 import static android.widget.RelativeLayout.ABOVE;
 import static android.widget.RelativeLayout.ALIGN_TOP;
 
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AndroidApplication implements AndroidAdsCommunicator {
 	//Testowe zakomentowane
 	final String AD_UNIT_ID_BANNER = "ca-app-pub-3940256099942544/6300978111";
 	final String AD_UNIT_ID_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
@@ -41,7 +42,7 @@ public class AndroidLauncher extends AndroidApplication {
 		saveListener = new SaveListenerImpl();
 
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		gameView = initializeForView(new CoreLauncher(), config);
+		gameView = initializeForView(new CoreLauncher(this), config);
 
 		RelativeLayout layout = new RelativeLayout(this);
 		RelativeLayout.LayoutParams gameViewParams = new RelativeLayout.LayoutParams(
@@ -158,5 +159,10 @@ public class AndroidLauncher extends AndroidApplication {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+	}
+
+	@Override
+	public void showAd() {
+
 	}
 }

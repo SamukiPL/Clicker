@@ -7,11 +7,12 @@ import me.samuki.clicker.base.BasicMethods
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.GameCommunicator
+import me.samuki.clicker.base.interfaces.communication.AndroidAdsCommunicator
 import me.samuki.clicker.base.interfaces.communication.SaveListener
 import me.samuki.clicker.main.MainScreen
 import me.samuki.clicker.shop.ShopScreen
 
-class CoreLauncher() : Game(), GameCommunicator {
+class CoreLauncher(override val androidAdsCommunicator: AndroidAdsCommunicator) : Game(), GameCommunicator {
     override lateinit var batch: SpriteBatch
     override lateinit var camera: OrthographicCamera
 

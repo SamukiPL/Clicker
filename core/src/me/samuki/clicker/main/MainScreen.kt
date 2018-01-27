@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.scenes.scene2d.actions.Actions.run
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
+import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 import me.samuki.clicker.CoreLauncher
 import me.samuki.clicker.base.BaseScreen
 import me.samuki.clicker.base.Constants
@@ -17,6 +18,7 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
     private lateinit var presenter: MainPresenter
 
     private lateinit var shopShowcase: ScrollPane
+    private lateinit var rewardedAdDialog: WidgetGroup
 
     override fun show() {
         start()
@@ -60,6 +62,11 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
         this.shopShowcase = scrollPane
     }
 
+    override fun addRewardedAdDialog(widgetGroup: WidgetGroup) {
+        this.rewardedAdDialog = widgetGroup
+        stage.addActor(rewardedAdDialog)
+    }
+
     override fun showScreenTransmissionAnimation(button: Button) {
         button.addAction(Actions.parallel(
                 Actions.moveTo(0F, 0F, 0.2F),
@@ -74,4 +81,18 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
         game.changeScreen(CoreLauncher.Companion.ScreenTypes.SHOP_SCREEN)
     }
 
+    override fun showRewardedAdDialog() {
+        rewardedAdDialog.x = 0F
+        rewardedAdDialog.y = Constants.numbers.screen_height - 800F
+    }
+
+    override fun hideRewardedAdDialog() {
+        rewardedAdDialog.x = -1000F
+        rewardedAdDialog.y = -1000F
+    }
+
+    override fun showAd() {
+        game.androidAdsCommunicator.showAd()
+        hideRewardedAdDialog()
+    }
 }

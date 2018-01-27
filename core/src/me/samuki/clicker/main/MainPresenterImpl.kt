@@ -34,6 +34,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
         view?.addTextsToRender(dataManager.loadTexts())
         view?.addTexturesToRender(dataManager.loadTextures())
         view?.addShopShowcase(dataManager.getShopShowcase())
+        view?.addRewardedAdDialog(dataManager.getRewardedAdDialog())
     }
 
     override fun clickIncomeListener(): EventListener {
@@ -69,6 +70,30 @@ class MainPresenterImpl : MainPresenter, MainListeners {
         return object: ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
                 view?.showScreenTransmissionAnimation(actor as Button)
+            }
+        }
+    }
+
+    override fun rewardIconClickListener(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.showRewardedAdDialog()
+            }
+        }
+    }
+
+    override fun showAd(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.showAd()
+            }
+        }
+    }
+
+    override fun cancelDialog(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.hideRewardedAdDialog()
             }
         }
     }

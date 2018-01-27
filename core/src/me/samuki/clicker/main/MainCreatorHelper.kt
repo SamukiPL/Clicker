@@ -1,5 +1,6 @@
 package me.samuki.clicker.main
 
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureRegion
@@ -7,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable
+import com.badlogic.gdx.utils.Align
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.CreatorHelper
 import me.samuki.clicker.base.SharedPrefs
@@ -29,6 +30,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         actorsList.add(mainClickActor())
         actorsList.add(upgradeShopShowcaseButton())
         actorsList.add(shopIcon())
+        actorsList.add(rewardIcon())
         return actorsList
     }
 
@@ -64,6 +66,17 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         return scrollPane
     }
 
+    fun createRewardedAdDialog(): WidgetGroup {
+        val group = WidgetGroup()
+        group.addActor(dialogBackground().getActorFromModel())
+        group.addActor(dialogYesButton().getActorFromModel())
+        group.addActor(dialogNoButton().getActorFromModel())
+        group.setBounds(0F, 0F, 400F, 450F)
+        group.x = -1000F
+        group.y = -1000F
+        return group
+    }
+
     //Animations
     private fun pierdolecAnimation(): AnimationModel {
         val animation:  Animation<TextureRegion> = spriteCutting(Constants.paths.pierdolce,
@@ -86,8 +99,30 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     }
     private fun shopIcon(): ActorModel {
         return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.shop_icon,
-                boundX = 50F, boundY = 50F, positionX = Constants.numbers.screen_width - 75F, positionY = Constants.numbers.screen_height - 75F,
+                boundX = 75F, boundY = 75F, positionX = Constants.numbers.screen_width - 100F, positionY = Constants.numbers.screen_height - 100F,
                 listener = listeners.showShopScreen())
+    }
+    private fun rewardIcon(): ActorModel {
+        return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.shop_icon,
+                boundX = 75F, boundY = 75F, positionX = 25F, positionY = Constants.numbers.screen_height - 100F,
+                listener = listeners.rewardIconClickListener())
+    }
+    private fun dialogBackground(): ActorModel {
+        return ActorModel(ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.rewarded_dialog_background,
+                boundX = Constants.numbers.screen_width - 100F, boundY = 450F, buttonText = Constants.texts.ad_explanation_text,
+                positionX = 50F, textScale = 0.4F, textAlign = Align.top)
+    }
+    private fun dialogYesButton(): ActorModel {
+        return ActorModel(ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.invisible_background,
+                positionX = Constants.numbers.screen_width - 150F, positionY = 50F,
+                buttonText = Constants.texts.ad_yes_text, textScale = 0.5F, textAlign = Align.right, textColor = Color.GREEN,
+                listener = listeners.showAd())
+    }
+    private fun dialogNoButton(): ActorModel {
+        return ActorModel(ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.invisible_background,
+                positionX = Constants.numbers.screen_width - 325F, positionY = 50F,
+                buttonText = Constants.texts.ad_no_text, textScale = 0.5F, textAlign = Align.right, textColor = Color.RED,
+                listener = listeners.cancelDialog())
     }
     //Texts
     private fun amountText(): TextModel {
