@@ -1,8 +1,12 @@
 package me.samuki.clicker.shop
 
+import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
+import me.samuki.clicker.base.BasicMethods
 import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.interfaces.IncomeHandler
+import me.samuki.clicker.models.MoneyMakerModel
 import me.samuki.clicker.shop.interfaces.ShopDataManager
 import me.samuki.clicker.shop.interfaces.ShopListeners
 import me.samuki.clicker.shop.interfaces.ShopPresenter
@@ -25,10 +29,25 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
     }
 
     override fun loadEverything() {
-
+        view?.addAnimationsToRender(dataManager.loadAnimations())
+        view?.addActorsToStage(dataManager.loadActors())
+        view?.addTextsToRender(dataManager.loadTexts())
+        view?.addTexturesToRender(dataManager.loadTextures())
     }
 
     override fun goBackToMainScreen(): EventListener {
         TODO("Łukasz weź się do roboty!")
+    }
+
+    override fun buyMoneyMaker(moneyMakerModel: MoneyMakerModel): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                if (BasicMethods.compareAmountWithPrice(incomeHandler.getAmountBigInteger(), moneyMakerModel.price)) {
+                    incomeHandler.subtractPriceFromAmount(moneyMakerModel.price)
+                    moneyMakerModel.handelBuying()
+                    view?.refreshAmount(incomeHandler.getAmountString())
+                }
+            }
+        }
     }
 }

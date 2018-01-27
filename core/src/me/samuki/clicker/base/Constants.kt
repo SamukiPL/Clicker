@@ -45,6 +45,7 @@ class Constants {
             private const val main_screen_path: String = "textures/mainscreen/"
             const val main_background: String = main_screen_path + "background.png"
             const val shop_icon: String = main_screen_path + "shop_icon.png"
+            const val reward_icon: String = main_screen_path + "reward_icon.png"
             const val pierdolce: String = main_screen_path + "pierdolce.png"
             const val trombone: String = main_screen_path + "trombone.png"
             const val trumpet: String = main_screen_path + "trumpet.png"
@@ -58,12 +59,13 @@ class Constants {
             const val shop_showcase_background: String = main_screen_path + "shop_showcase_background.png"
             const val show_shop_showcase: String = main_screen_path + "show_shop_showcase.png"
             const val hide_shop_showcase: String = main_screen_path + "hide_shop_showcase.png"
-            const val cell_background: String = main_screen_path + "cell_background.png"
+            const val showcase_cell_background: String = main_screen_path + "cell_background.png"
             const val rewarded_dialog_background: String = main_screen_path + "rewarded_dialog_background.png"
             //Shop Screen
             private const val shop_screen_path: String = "textures/shopscreen/"
             const val shop_background: String = shop_screen_path + "background.png"
             const val close_shop_icon: String = shop_screen_path + "close_icon.png"
+            const val shop_cell_background: String = shop_screen_path + "shop_cell_background.png"
         }
     }
 
@@ -76,6 +78,8 @@ class Constants {
             const val click_income: String = "click_income"
             const val click_upgrades_bought: String = "click_upgrade_no_" + replace_mark
             const val click_upgrades_income: String = "click_upgrade_income" + replace_mark
+            const val money_makers_bought: String = "money_maker_no_" + replace_mark
+            const val money_makers_income: String = "money_maker_income_" + replace_mark
             const val sounds_volume: String = "volume"
         }
     }

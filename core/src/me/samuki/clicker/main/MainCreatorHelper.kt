@@ -29,8 +29,8 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         val actorsList: MutableList<ActorModel> = ArrayList()
         actorsList.add(mainClickActor())
         actorsList.add(upgradeShopShowcaseButton())
-        actorsList.add(shopIcon())
         actorsList.add(rewardIcon())
+        actorsList.add(shopIcon())// Always LAST!!!
         return actorsList
     }
 
@@ -103,7 +103,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
                 listener = listeners.showShopScreen())
     }
     private fun rewardIcon(): ActorModel {
-        return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.shop_icon,
+        return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.reward_icon,
                 boundX = 75F, boundY = 75F, positionX = 25F, positionY = Constants.numbers.screen_height - 100F,
                 listener = listeners.rewardIconClickListener())
     }

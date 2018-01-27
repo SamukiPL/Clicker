@@ -6,14 +6,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 import com.badlogic.gdx.utils.Align
 import me.samuki.clicker.base.*
 import me.samuki.clicker.base.enums.ModelTypes
-import me.samuki.clicker.main.interfaces.MainListeners
+import me.samuki.clicker.shop.interfaces.ShopListeners
 
 
-class ClickUpgradeModel(
+class MoneyMakerModel(
         val id: Int,
-        val listeners: MainListeners
-) : BaseModel() {
-    override var type: ModelTypes = ModelTypes.CLICK_UPGRADE_MODEL
+        val listeners: ShopListeners
+): BaseModel() {
+    override var type: ModelTypes = ModelTypes.MONEY_MAKER_MODEL
 
     var amount: Long = 0L
     lateinit var price: String
@@ -21,21 +21,21 @@ class ClickUpgradeModel(
     var amountActor: Actor? = null
     var priceActor: Actor? = null
 
-    fun getUpgradeWidgetGroup(): WidgetGroup {
+    fun getMoneyMakerGroup(): WidgetGroup {
         val name: String = Constants.upgrades_info[id].name
         val path: String = Constants.upgrades_info[id].texturePath
-        amount = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark, id.toString()), 0L)
+        amount = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.money_makers_bought.replace(Constants.replace_mark, id.toString()), 0L)
         price = getPrice(id, amount, Constants.upgrades_info[id].price)
 
         val group = WidgetGroup()
 
-        group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.showcase_cell_background,
+        group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.shop_cell_background,
                 boundX = Constants.numbers.screen_width, boundY = 200F).getActorFromModel())
         //IMAGE
         group.addActor(ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, path,
                 boundX = Constants.numbers.instrument_width, boundY = Constants.numbers.instrument_height,
                 positionY = 200F - Constants.numbers.instrument_height, positionX = 20F,
-                listener = listeners.buyClickUpgrade(this)).getActorFromModel())
+                listener = listeners.buyMoneyMaker(this)).getActorFromModel())
         //NAME TEXT
         group.addActor(ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
                 Constants.paths.click_income_invisible_texture, buttonText = name, textScale = 0.75F,
@@ -57,9 +57,6 @@ class ClickUpgradeModel(
         return group
     }
 
-    fun checkIfBuyingIsPossible(): Boolean {
-        return false
-    }
 
     fun handelBuying() {
         val id = id

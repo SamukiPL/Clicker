@@ -1,5 +1,8 @@
 package me.samuki.clicker.shop
 
+import com.badlogic.gdx.Preferences
+import me.samuki.clicker.base.SharedPrefs
+import me.samuki.clicker.main.MainCreatorHelper
 import me.samuki.clicker.models.ActorModel
 import me.samuki.clicker.models.AnimationModel
 import me.samuki.clicker.models.TextModel
@@ -10,24 +13,31 @@ import me.samuki.clicker.shop.interfaces.ShopListeners
 
 class ShopDataManagerImpl(listeners: ShopListeners) : ShopDataManager {
 
+    private lateinit var prefs: Preferences
+    private val creatorHelper: ShopCreatorHelper = ShopCreatorHelper(listeners)
+
+    init {
+        initPrefs()
+    }
+
     override fun initPrefs() {
-        TODO("Łukasz weź się do roboty!")
+        prefs = SharedPrefs.getInstance().prefs
     }
 
-    override fun loadAnimations(): List<AnimationModel> {
-        TODO("Łukasz weź się do roboty!")
+    override fun loadAnimations(): MutableList<AnimationModel> {
+        return creatorHelper.createAnimations()
     }
 
-    override fun loadActors(): List<ActorModel> {
-        TODO("Łukasz weź się do roboty!")
+    override fun loadActors(): MutableList<ActorModel> {
+        return creatorHelper.createActorsModels()
     }
 
-    override fun loadTexts(): List<TextModel> {
-        TODO("Łukasz weź się do roboty!")
+    override fun loadTexts(): MutableList<TextModel> {
+        return creatorHelper.createTextModels()
     }
 
-    override fun loadTextures(): List<TextureModel> {
-        TODO("Łukasz weź się do roboty!")
+    override fun loadTextures(): MutableList<TextureModel> {
+        return creatorHelper.createTexturesModels()
     }
 
     override fun loadBoughtItems() {
