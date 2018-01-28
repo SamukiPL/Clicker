@@ -64,6 +64,7 @@ class Constants {
             //Shop Screen
             private const val shop_screen_path: String = "textures/shopscreen/"
             const val shop_background: String = shop_screen_path + "background.png"
+            const val shop_list_background: String = shop_screen_path + "shop_list_background.png"
             const val close_shop_icon: String = shop_screen_path + "close_icon.png"
             const val shop_cell_background: String = shop_screen_path + "shop_cell_background.png"
             const val sweets: String = shop_screen_path + "sweets.png"
@@ -105,7 +106,12 @@ class Constants {
                 ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "2000000000", "50000")
         )
         val money_makers: Array<MoneyMaker> = arrayOf(
-
+                MoneyMaker("Słodyce", Constants.paths.sweets, "1000", "1"),
+                MoneyMaker("Koń", Constants.paths.sousaphone, "75000", "10"),
+                MoneyMaker("Łyse pole", Constants.paths.sousaphone, "800000", "25"),
+                MoneyMaker("Pomarańcza", Constants.paths.sousaphone, "5000000", "100"),
+                MoneyMaker("Lornetka", Constants.paths.sousaphone, "75000000", "1000"),
+                MoneyMaker("Linoleum", Constants.paths.sousaphone, "1000000000", "10000")
         )
     }
 

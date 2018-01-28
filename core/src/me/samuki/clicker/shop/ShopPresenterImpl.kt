@@ -39,7 +39,6 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
 
     override fun goBackToMainScreen(): EventListener {return object: ChangeListener() {
         override fun changed(event: ChangeEvent?, actor: Actor?) {
-            var a = 3 + 2
         }
     }
     }

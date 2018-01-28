@@ -51,7 +51,7 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
         }
 
         val scrollPane = ScrollPane(table)
-        scrollPane.style.background = Image(Texture(Constants.paths.shop_cell_background)).drawable
+        scrollPane.style.background = Image(Texture(Constants.paths.shop_list_background)).drawable
         scrollPane.setScrollingDisabled(true, false)
         scrollPane.width = Constants.numbers.screen_width
         scrollPane.height = Constants.numbers.screen_height - 200F
@@ -65,7 +65,7 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
     //Actors
     private fun closeShopIcon(): ActorModel {
         return ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.close_shop_icon,
-                boundX = 75F, boundY = 75F, positionX = Constants.numbers.screen_width - 100F, positionY = 1327F,
+                boundX = 75F, boundY = 75F, positionX = Constants.numbers.screen_width - 100F, positionY = 1250F,
                 listener = listeners.goBackToMainScreen())
     }
     //Texts
