@@ -24,11 +24,13 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
 
     fun createActorsModels(): MutableList<ActorModel> {
         val actorsList: MutableList<ActorModel> = ArrayList()
+        actorsList.add(closeShopIcon())
         return actorsList
     }
 
     fun createTextModels(): MutableList<TextModel> {
         val textsList: MutableList<TextModel> = ArrayList()
+        textsList.add(amountText())
         return textsList
     }
 
@@ -43,13 +45,13 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
         var x = 0
         while (x < Constants.money_makers.size) {
             val group = MoneyMakerModel(x, listeners).getMoneyMakerGroup()
-            table.add(group).size(Constants.numbers.screen_width, 200F)
+            table.add(group).size(Constants.numbers.screen_width, 1300F)
             table.row()
             x++
         }
 
         val scrollPane = ScrollPane(table)
-        scrollPane.style.background = Image(Texture(Constants.paths.shop_showcase_background)).drawable
+        scrollPane.style.background = Image(Texture(Constants.paths.shop_cell_background)).drawable
         scrollPane.setScrollingDisabled(true, false)
         scrollPane.width = Constants.numbers.screen_width
         scrollPane.height = Constants.numbers.screen_height - 200F
@@ -61,9 +63,15 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
     //Animations
 
     //Actors
-
+    private fun closeShopIcon(): ActorModel {
+        return ActorModel(ActorModel.Companion.ActorTypes.BUTTON_TYPE, Constants.paths.close_shop_icon,
+                boundX = 75F, boundY = 75F, positionX = Constants.numbers.screen_width - 100F, positionY = 1327F,
+                listener = listeners.goBackToMainScreen())
+    }
     //Texts
-
+    private fun amountText(): TextModel {
+        return TextModel(TextModel.TextTypes.AMOUNT_TEXT, SharedPrefs.getInstance().prefs.getString(Constants.prefs.amount, "0"), 100F, 1327F)
+    }
     //Textures
     fun background(): TextureModel {
         return TextureModel(Constants.paths.shop_background, 0F, 0F, Constants.numbers.screen_width, Constants.numbers.screen_height)

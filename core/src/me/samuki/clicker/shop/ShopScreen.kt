@@ -8,8 +8,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.FitViewport
+import me.samuki.clicker.CoreLauncher
 import me.samuki.clicker.base.BaseScreen
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.SoundsManager
@@ -51,5 +53,9 @@ class ShopScreen(game: GameCommunicator) : BaseScreen(game), ShopView {
 
     override fun stop() {
         presenter.detachView()
+    }
+
+    fun changeToMainScreen() {
+        game.changeScreen(CoreLauncher.Companion.ScreenTypes.MAIN_SCREEN)
     }
 }

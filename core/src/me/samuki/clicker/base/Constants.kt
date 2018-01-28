@@ -66,6 +66,13 @@ class Constants {
             const val shop_background: String = shop_screen_path + "background.png"
             const val close_shop_icon: String = shop_screen_path + "close_icon.png"
             const val shop_cell_background: String = shop_screen_path + "shop_cell_background.png"
+            const val sweets: String = shop_screen_path + "sweets.png"
+            const val horse: String = shop_screen_path + "horse.png"
+            const val linoleum: String = shop_screen_path + "linoleum.png"
+            const val lyse_pole: String = shop_screen_path + "lyse_pole.png"
+            const val orange: String = shop_screen_path + "orange.png"
+            const val binoculars: String = shop_screen_path + "binoculars.png"
+
         }
     }
 

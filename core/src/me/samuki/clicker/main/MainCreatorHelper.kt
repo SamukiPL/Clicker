@@ -81,7 +81,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     private fun pierdolecAnimation(): AnimationModel {
         val animation:  Animation<TextureRegion> = spriteCutting(Constants.paths.pierdolce,
                 Constants.numbers.pierdolce_cols, Constants.numbers.pierdolce_rows, 1F)
-        val animationModel: AnimationModel = AnimationModel(animation, 0F, 50F, 13)
+        val animationModel: AnimationModel = AnimationModel(animation, 0F, 100F, 13)
         animationModel.centerPositionX()
         return animationModel
     }
@@ -94,7 +94,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     }
     private fun upgradeShopShowcaseButton(): ActorModel {
         return ActorModel(ActorTypes.BUTTON_TYPE, Constants.paths.show_shop_showcase,
-                boundX = Constants.numbers.screen_width, boundY = 50F, positionX = 0F, positionY = 0F,
+                boundX = Constants.numbers.screen_width, boundY = 100F, positionX = 0F, positionY = 0F,
                 listener = listeners.showHideShowcaseListener())
     }
     private fun shopIcon(): ActorModel {

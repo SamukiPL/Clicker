@@ -77,7 +77,7 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
         ))
     }
 
-    private fun changeToShopScreen() {
+     fun changeToShopScreen() {
         game.changeScreen(CoreLauncher.Companion.ScreenTypes.SHOP_SCREEN)
     }
 

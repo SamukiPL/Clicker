@@ -2,6 +2,7 @@ package me.samuki.clicker.shop
 
 import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.EventListener
+import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener
 import me.samuki.clicker.base.BasicMethods
 import me.samuki.clicker.base.IncomeHandlerImpl
@@ -35,8 +36,11 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
         view?.addTexturesToRender(dataManager.loadTextures())
     }
 
-    override fun goBackToMainScreen(): EventListener {
-        TODO("Łukasz weź się do roboty!")
+    override fun goBackToMainScreen(): EventListener {return object: ChangeListener() {
+        override fun changed(event: ChangeEvent?, actor: Actor?) {
+            var a = 3 + 2
+        }
+    }
     }
 
     override fun buyMoneyMaker(moneyMakerModel: MoneyMakerModel): EventListener {
