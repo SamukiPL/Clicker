@@ -51,11 +51,11 @@ class MainDataManagerImpl(listeners: MainListeners) : MainDataManager {
         return emptyList()
     }
 
-    override fun getShopShowcase(): ScrollPane {
+    override fun loadShopShowcase(): ScrollPane {
         return creatorHelper.createShopShowcase()
     }
 
-    override fun getRewardedAdDialog(): WidgetGroup {
+    override fun loadRewardedAdDialog(): WidgetGroup {
         return creatorHelper.createRewardedAdDialog()
     }
 

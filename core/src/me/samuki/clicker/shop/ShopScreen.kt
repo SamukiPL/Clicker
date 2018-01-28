@@ -33,8 +33,8 @@ class ShopScreen(game: GameCommunicator) : BaseScreen(game), ShopView {
 
     override fun show() {
         start()
-        presenter.loadEverything()
         super.show()
+        presenter.loadEverything()
     }
 
     override fun render(delta: Float) {

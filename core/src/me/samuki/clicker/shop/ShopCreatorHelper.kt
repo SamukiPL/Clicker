@@ -40,8 +40,8 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
         return texturesList
     }
 
-    fun createShopShowcase(): ScrollPane {
-        var table = Table()
+    fun createShopList(): ScrollPane {
+        val table = Table()
         var x = 0
         while (x < Constants.money_makers.size) {
             val group = MoneyMakerModel(x, listeners).getMoneyMakerGroup()
@@ -56,7 +56,7 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
         scrollPane.width = Constants.numbers.screen_width
         scrollPane.height = Constants.numbers.screen_height - 200F
         scrollPane.setFadeScrollBars(false)
-        scrollPane.setPosition(0F, -scrollPane.height)
+        scrollPane.setPosition(0F, 0F)
         return scrollPane
     }
 

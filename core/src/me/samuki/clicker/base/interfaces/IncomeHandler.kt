@@ -7,6 +7,7 @@ interface IncomeHandler {
     fun getAmountString(): String
     fun getAmountBigInteger(): BigInteger
     fun addClickIncome()
+    fun addToIncome(incomeToAdd: String)
     fun subtractPriceFromAmount(price: String)
     fun incrementClicksAmount()
     fun setAmountTextRefresher(amountTextRefresher: AmountTextRefresher?)

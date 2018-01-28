@@ -58,6 +58,10 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         amount += ClickUpgradesHandlerImpl.getInstance().clickIncome
     }
 
+    override fun addToIncome(incomeToAdd: String) {
+        income += BigInteger(incomeToAdd)
+    }
+
     override fun subtractPriceFromAmount(price: String) {
         amount -= BigInteger(BasicMethods.addZerosToString(price))
     }

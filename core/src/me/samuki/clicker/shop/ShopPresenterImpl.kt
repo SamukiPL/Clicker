@@ -34,6 +34,7 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
         view?.addActorsToStage(dataManager.loadActors())
         view?.addTextsToRender(dataManager.loadTexts())
         view?.addTexturesToRender(dataManager.loadTextures())
+        view?.addActorToStage(dataManager.loadShopList())
     }
 
     override fun goBackToMainScreen(): EventListener {return object: ChangeListener() {

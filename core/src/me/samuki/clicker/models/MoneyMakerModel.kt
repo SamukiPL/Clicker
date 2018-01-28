@@ -17,15 +17,17 @@ class MoneyMakerModel(
 
     var amount: Long = 0L
     lateinit var price: String
+    lateinit var incomeToAdd: String
 
     var amountActor: Actor? = null
     var priceActor: Actor? = null
 
     fun getMoneyMakerGroup(): WidgetGroup {
-        val name: String = Constants.upgrades_info[id].name
-        val path: String = Constants.upgrades_info[id].texturePath
+        val name: String = Constants.money_makers[id].name
+        val path: String = Constants.money_makers[id].texturePath
         amount = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.money_makers_bought.replace(Constants.replace_mark, id.toString()), 0L)
-        price = getPrice(id, amount, Constants.upgrades_info[id].price)
+        price = getPrice(id, amount, Constants.money_makers[id].price)
+        incomeToAdd = Constants.money_makers[id].income
 
         val group = WidgetGroup()
 
@@ -63,13 +65,13 @@ class MoneyMakerModel(
         val amount: Long = incrementAmount()
         val price: String = incrementPrice()
         SharedPrefs.getInstance().prefs.putLong(
-                Constants.prefs.click_upgrades_bought.replace(Constants.replace_mark,
+                Constants.prefs.money_makers_bought.replace(Constants.replace_mark,
                         id.toString()), amount)
         SharedPrefs.getInstance().flush()
         (amountActor as TextButton).setText(amount.toString())
         (priceActor as TextButton).setText(price)
 
-        ClickUpgradesHandlerImpl.getInstance().handleClickUpgrade(id, amount - 1)
+        IncomeHandlerImpl.getInstance().addToIncome(incomeToAdd)
     }
 
     private fun incrementAmount(): Long {

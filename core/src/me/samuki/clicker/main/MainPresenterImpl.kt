@@ -33,8 +33,8 @@ class MainPresenterImpl : MainPresenter, MainListeners {
         view?.addActorsToStage(dataManager.loadActors())
         view?.addTextsToRender(dataManager.loadTexts())
         view?.addTexturesToRender(dataManager.loadTextures())
-        view?.addShopShowcase(dataManager.getShopShowcase())
-        view?.addRewardedAdDialog(dataManager.getRewardedAdDialog())
+        view?.addShopShowcase(dataManager.loadShopShowcase())
+        view?.addRewardedAdDialog(dataManager.loadRewardedAdDialog())
     }
 
     override fun clickIncomeListener(): EventListener {

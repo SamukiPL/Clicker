@@ -1,6 +1,7 @@
 package me.samuki.clicker.shop
 
 import com.badlogic.gdx.Preferences
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.MainCreatorHelper
 import me.samuki.clicker.models.ActorModel
@@ -40,7 +41,7 @@ class ShopDataManagerImpl(listeners: ShopListeners) : ShopDataManager {
         return creatorHelper.createTexturesModels()
     }
 
-    override fun loadBoughtItems() {
-        TODO("Łukasz weź się do roboty!")
+    override fun loadShopList(): ScrollPane {
+        return creatorHelper.createShopList()
     }
 }
