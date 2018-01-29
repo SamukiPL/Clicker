@@ -107,11 +107,11 @@ class Constants {
         )
         val money_makers: Array<MoneyMaker> = arrayOf(
                 MoneyMaker("Słodyce", Constants.paths.sweets, "1000", "1"),
-                MoneyMaker("Koń", Constants.paths.sousaphone, "75000", "10"),
-                MoneyMaker("Łyse pole", Constants.paths.sousaphone, "800000", "25"),
-                MoneyMaker("Pomarańcza", Constants.paths.sousaphone, "5000000", "100"),
-                MoneyMaker("Lornetka", Constants.paths.sousaphone, "75000000", "1000"),
-                MoneyMaker("Linoleum", Constants.paths.sousaphone, "1000000000", "10000")
+                MoneyMaker("Koń", Constants.paths.horse, "75000", "10"),
+                MoneyMaker("Łyse pole", Constants.paths.lyse_pole, "800000", "25"),
+                MoneyMaker("Pomarańcza", Constants.paths.orange, "5000000", "100"),
+                MoneyMaker("Lornetka", Constants.paths.binoculars, "75000000", "1000"),
+                MoneyMaker("Linoleum", Constants.paths.linoleum, "1000000000", "10000")
         )
     }
 

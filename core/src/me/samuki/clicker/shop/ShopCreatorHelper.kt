@@ -45,7 +45,7 @@ class ShopCreatorHelper(val listeners: ShopListeners) : CreatorHelper() {
         var x = 0
         while (x < Constants.money_makers.size) {
             val group = MoneyMakerModel(x, listeners).getMoneyMakerGroup()
-            table.add(group).size(Constants.numbers.screen_width, 1300F)
+            table.add(group).size(Constants.numbers.screen_width, 210F)
             table.row()
             x++
         }
