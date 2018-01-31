@@ -5,6 +5,7 @@ import java.math.BigInteger
 
 interface IncomeHandler {
     fun getAmountString(): String
+    fun getIncomeString(): String
     fun getAmountBigInteger(): BigInteger
     fun addClickIncome()
     fun addToIncome(incomeToAdd: String)

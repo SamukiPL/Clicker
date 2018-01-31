@@ -69,7 +69,7 @@ class MainPresenterImpl : MainPresenter, MainListeners {
     override fun showShopScreen(): EventListener {
         return object: ChangeListener() {
             override fun changed(event: ChangeEvent?, actor: Actor?) {
-                view?.showScreenTransmissionAnimation(actor as Button)
+                view?.changeToShopScreen()
             }
         }
     }

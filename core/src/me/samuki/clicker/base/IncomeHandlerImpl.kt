@@ -50,6 +50,10 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         return BasicMethods.shortenNumber(amount.toString())
     }
 
+    override fun getIncomeString(): String {
+        return income.toString()
+    }
+
     override fun getAmountBigInteger(): BigInteger {
         return amount
     }

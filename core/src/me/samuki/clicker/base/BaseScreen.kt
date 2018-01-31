@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.utils.Scaling
 import com.badlogic.gdx.utils.viewport.FitViewport
+import me.samuki.clicker.base.androidcommunication.SaveListenerImpl
 import me.samuki.clicker.base.interfaces.BaseView
 import me.samuki.clicker.base.interfaces.GameCommunicator
 import me.samuki.clicker.base.interfaces.SoundsPlayer
@@ -34,6 +35,9 @@ abstract class BaseScreen(val game: GameCommunicator): Screen, BaseView {
     protected var batch: SpriteBatch = game.batch
 
     protected var stateTime: Float = 0F
+
+    private val saveListener = SaveListenerImpl()
+    private var waitForSave = 0
 
     private fun initViewport() {
         viewport = FitViewport(Constants.numbers.screen_width, Constants.numbers.screen_height, game.camera)
@@ -62,6 +66,8 @@ abstract class BaseScreen(val game: GameCommunicator): Screen, BaseView {
     }
 
     override fun render(delta: Float) {
+        saveEverything()
+
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
         stateTime += Gdx.graphics.deltaTime
 
@@ -97,6 +103,14 @@ abstract class BaseScreen(val game: GameCommunicator): Screen, BaseView {
         stage.dispose()
         for (model: TextureModel in texturesToRender) {
             model.texture.dispose()
+        }
+    }
+
+    private fun saveEverything() {
+        waitForSave++
+        if (waitForSave > 1800) {
+            saveListener.saveEverything()
+            waitForSave = 0
         }
     }
 

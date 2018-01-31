@@ -52,8 +52,8 @@ class MoneyMakerModel(
         //PRICE TEXT
         priceActor = ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
                 Constants.paths.click_income_invisible_texture, buttonText = price.toString(),
-                boundX = Constants.numbers.instrument_width, boundY = 80F, textAlign = Align.center,
-                textScale = 0.5F, positionX = 20F, positionY = 10F).getActorFromModel()
+                boundX = Constants.numbers.instrument_width,  boundY = 80F, textAlign = Align.left,
+                textScale = 0.5F, positionX = 100F, positionY = 8F).getActorFromModel()
         group.addActor(priceActor)
 
         return group

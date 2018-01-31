@@ -10,10 +10,16 @@ class SaveListenerImpl : SaveListener {
 
     override fun saveEverything() {
         saveAmount()
+        saveIncome()
     }
 
     private fun saveAmount() {
         val amount: String = IncomeHandlerImpl.getInstance().getAmountBigInteger().toString()
         SharedPrefs.getInstance().saveAmount(amount)
+    }
+
+    private fun saveIncome() {
+        val income: String = IncomeHandlerImpl.getInstance().getIncomeString()
+        SharedPrefs.getInstance().saveIncome(income)
     }
 }

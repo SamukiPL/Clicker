@@ -25,4 +25,9 @@ class SharedPrefs private constructor() {
         flush()
     }
 
+    fun saveIncome(income: String) {
+        prefs.putString(Constants.prefs.income, income)
+        flush()
+    }
+
 }

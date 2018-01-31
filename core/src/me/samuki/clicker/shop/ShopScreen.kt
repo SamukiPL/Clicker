@@ -55,7 +55,7 @@ class ShopScreen(game: GameCommunicator) : BaseScreen(game), ShopView {
         presenter.detachView()
     }
 
-    fun changeToMainScreen() {
+    override fun changeToMainScreen() {
         game.changeScreen(CoreLauncher.Companion.ScreenTypes.MAIN_SCREEN)
     }
 }

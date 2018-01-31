@@ -67,23 +67,13 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
         stage.addActor(rewardedAdDialog)
     }
 
-    override fun showScreenTransmissionAnimation(button: Button) {
-        button.addAction(Actions.parallel(
-                Actions.moveTo(0F, 0F, 0.2F),
-                Actions.sequence(
-                        Actions.sizeTo(Constants.numbers.screen_width, Constants.numbers.screen_height, 0.2F),
-                        run(Runnable { changeToShopScreen() })
-                )
-        ))
-    }
-
-    private fun changeToShopScreen() {
+    override fun changeToShopScreen() {
         game.changeScreen(CoreLauncher.Companion.ScreenTypes.SHOP_SCREEN)
     }
 
     override fun showRewardedAdDialog() {
         rewardedAdDialog.x = 0F
-        rewardedAdDialog.y = Constants.numbers.screen_height - 800F
+        rewardedAdDialog.y = Constants.numbers.screen_height - 600F
     }
 
     override fun hideRewardedAdDialog() {
@@ -92,7 +82,7 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
     }
 
     override fun showAd() {
-        game.androidAdsCommunicator.showAd()
+        game.androidAdsCommunicator.showRewardedAd()
         hideRewardedAdDialog()
     }
 }

@@ -11,7 +11,7 @@ interface MainView : BaseView {
     fun addShopShowcase(scrollPane: ScrollPane)
     fun addRewardedAdDialog(widgetGroup: WidgetGroup)
     fun showHideShowcase(button: Button)
-    fun showScreenTransmissionAnimation(button: Button)
+    fun changeToShopScreen()
     fun showRewardedAdDialog()
     fun hideRewardedAdDialog()
     fun showAd()

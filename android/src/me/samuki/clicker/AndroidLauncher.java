@@ -12,8 +12,14 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.reward.RewardItem;
+import com.google.android.gms.ads.reward.RewardedVideoAd;
+import com.google.android.gms.ads.reward.RewardedVideoAdListener;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Task;
+
+import org.jetbrains.annotations.Nullable;
 
 import me.samuki.clicker.base.androidcommunication.SaveListenerImpl;
 import me.samuki.clicker.base.interfaces.communication.AndroidAdsCommunicator;
@@ -34,6 +40,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 
 	private View gameView;
 	private AdView adView;
+	private RewardedVideoAd rewardedAd;
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -50,6 +57,8 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 		layout.addView(gameView, gameViewParams);
 
 		initAdView();
+		initRewardedAd();
+
 		RelativeLayout.LayoutParams adParams =  new RelativeLayout.LayoutParams(
 				ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		adParams.setMargins(0, -AdSize.SMART_BANNER.getHeightInPixels(this), 0, 0);
@@ -70,6 +79,56 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 		adView.setAdUnitId(AD_UNIT_ID_BANNER);
 		adView.setAdSize(AdSize.SMART_BANNER);
 	}
+
+	private void initRewardedAd() {
+		rewardedAd = MobileAds.getRewardedVideoAdInstance(this);
+		rewardedAd.setRewardedVideoAdListener(new RewardedAdListener() {
+
+            @Override
+            public void onRewardedVideoAdClosed() {
+                loadRewardedAd();
+            }
+
+            @Override
+            public void onRewardedVideoAdFailedToLoad(int p0) {
+                loadRewardedAd();
+            }
+
+            @Override
+            public void onRewarded(@Nullable RewardItem p0) {
+
+            }
+        });
+        loadRewardedAd();
+	}
+
+    @Override
+    public void showRewardedAd() {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(rewardedAd.isLoaded()) {
+                        rewardedAd.show();
+                    }
+                }
+            });
+        } catch (Exception ignored) {
+
+        }
+    }
+
+    private void loadRewardedAd() {
+        try {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    rewardedAd.loadAd(AD_UNIT_ID_REWARDED, new AdRequest.Builder()
+                            .addTestDevice("111799C3AA4FAD728F7A0E814E55273F").build());
+                }
+            });
+        } catch (Exception ignored) {}
+    }
 
 	private void startAdvertising() {
 		AdRequest adRequest = new AdRequest.Builder()
@@ -123,12 +182,14 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 	@Override
 	protected void onResume() {
 		super.onResume();
+		rewardedAd.resume(this);
 		hideSystemUI();
 		gameServicesHelper.silentSignIn();
 	}
 
     @Override
     protected void onPause() {
+	    rewardedAd.pause(this);
 	    saveListener.saveEverything();
         super.onPause();
     }
@@ -141,6 +202,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 
     @Override
     protected void onDestroy() {
+	    rewardedAd.destroy(this);
 	    saveListener.saveEverything();
         super.onDestroy();
     }
@@ -159,10 +221,5 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-	}
-
-	@Override
-	public void showAd() {
-
 	}
 }

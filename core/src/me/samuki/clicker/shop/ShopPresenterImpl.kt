@@ -21,12 +21,12 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
 
     override fun attachView(view: ShopView) {
         this.view = view
+        incomeHandler = IncomeHandlerImpl.getInstance()
+        incomeHandler.setAmountTextRefresher(view)
     }
 
     override fun detachView() {
         view = null
-        incomeHandler = IncomeHandlerImpl.getInstance()
-        incomeHandler.setAmountTextRefresher(view)
     }
 
     override fun loadEverything() {
@@ -39,6 +39,7 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
 
     override fun goBackToMainScreen(): EventListener {return object: ChangeListener() {
         override fun changed(event: ChangeEvent?, actor: Actor?) {
+            view?.changeToMainScreen()
         }
     }
     }

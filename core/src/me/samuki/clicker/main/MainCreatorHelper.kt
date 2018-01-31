@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
 import com.badlogic.gdx.utils.Align
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.CreatorHelper
+import me.samuki.clicker.base.IncomeHandlerImpl
 import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.main.interfaces.MainListeners
 import me.samuki.clicker.models.*
@@ -126,7 +127,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
     }
     //Texts
     private fun amountText(): TextModel {
-        return TextModel(TextModel.TextTypes.AMOUNT_TEXT, SharedPrefs.getInstance().prefs.getString(Constants.prefs.amount, "0"), 100F, 1200F)
+        return TextModel(TextModel.TextTypes.AMOUNT_TEXT, IncomeHandlerImpl.getInstance().getAmountString(), 100F, 1200F)
     }
     //Textures
     private fun background(): TextureModel {
