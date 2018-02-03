@@ -99,11 +99,11 @@ class Constants {
                 ClickUpgrade("Trąbka", Constants.paths.trumpet, "5000", "10"),
                 ClickUpgrade("Skrzydłówka", Constants.paths.flugelhorn, "50000", "100"),
                 ClickUpgrade("Tuba", Constants.paths.tuba, "175000", "1000"),
-                ClickUpgrade("Saksofon", Constants.paths.saxophone, "300000", "2500"),
-                ClickUpgrade("Obój", Constants.paths.french_horn, "1000000", "5000"),
-                ClickUpgrade("Suzafon", Constants.paths.sousaphone, "20000000", "10000"),
-                ClickUpgrade("Trąbita", Constants.paths.trembita, "100000000", "25000"),
-                ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "2000000000", "50000")
+                ClickUpgrade("Saksofon", Constants.paths.saxophone, "750000", "2500"),
+                ClickUpgrade("Obój", Constants.paths.french_horn, "20000000", "5000"),
+                ClickUpgrade("Suzafon", Constants.paths.sousaphone, "100000000", "10000"),
+                ClickUpgrade("Trąbita", Constants.paths.trembita, "2000000000", "25000"),
+                ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "15000000000", "50000")
         )
         val money_makers: Array<MoneyMaker> = arrayOf(
                 MoneyMaker("Słodyce", Constants.paths.sweets, "1000", "1"),
