@@ -106,12 +106,12 @@ class Constants {
                 ClickUpgrade("JFK 22NOV63", Constants.paths.sniper_rifle, "15000000000", "50000")
         )
         val money_makers: Array<MoneyMaker> = arrayOf(
-                MoneyMaker("Słodyce", Constants.paths.sweets, "1000", "1"),
-                MoneyMaker("Koń", Constants.paths.horse, "75000", "10"),
-                MoneyMaker("Łyse pole", Constants.paths.lyse_pole, "800000", "25"),
-                MoneyMaker("Pomarańcza", Constants.paths.orange, "5000000", "100"),
-                MoneyMaker("Lornetka", Constants.paths.binoculars, "75000000", "1000"),
-                MoneyMaker("Linoleum", Constants.paths.linoleum, "1000000000", "10000")
+                MoneyMaker("Słodyce", Constants.paths.sweets, "1000", "5"),
+                MoneyMaker("Koń", Constants.paths.horse, "125000", "100"),
+                MoneyMaker("Łyse pole", Constants.paths.lyse_pole, "2000000", "500"),
+                MoneyMaker("Pomarańcza", Constants.paths.orange, "30000000", "10000"),
+                MoneyMaker("Lornetka", Constants.paths.binoculars, "100000000", "125000"),
+                MoneyMaker("Linoleum", Constants.paths.linoleum, "30000000000", "2000000")
         )
     }
 
