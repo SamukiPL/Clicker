@@ -31,7 +31,7 @@ import static android.widget.RelativeLayout.ALIGN_TOP;
 
 public class AndroidLauncher extends AndroidApplication implements AndroidAdsCommunicator {
 	//Testowe zakomentowane
-	final String AD_UNIT_ID_BANNER = "ca-app-pub-3940256099942544/6300978111";
+	final String AD_UNIT_ID_BANNER = "ca-app-pub-9630376407798380/7006529159";
 	final String AD_UNIT_ID_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
 	final String AD_UNIT_ID_REWARDED = "ca-app-pub-3940256099942544/5224354917";
 
@@ -47,7 +47,7 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 		super.onCreate(savedInstanceState);
 		gameServicesHelper = new GameServicesHelper(this);
 		saveListener = new SaveListenerImpl();
-
+		MobileAds.initialize(this,"ca-app-pub-9630376407798380~4791429353");
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		gameView = initializeForView(new CoreLauncher(this), config);
 

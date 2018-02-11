@@ -41,17 +41,17 @@ class ClickUpgradeModel(
                 Constants.paths.click_income_invisible_texture, buttonText = name, textScale = 0.45F,
                 boundX = Constants.numbers.screen_width - Constants.numbers.instrument_width, textAlign = Align.center,
                 boundY = Constants.numbers.instrument_height, positionX = 240F,
-                positionY = 80F).getActorFromModel())
+                positionY = 80F,listener = listeners.buyClickUpgrade(this)).getActorFromModel())
         //AMOUNT TEXT
         amountActor = ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
                 Constants.paths.click_income_invisible_texture, buttonText = "Kup", textAlign = Align.right, textScale = 0.45F,
-                boundX = 80F, boundY = 80F, positionX = 490F, positionY = 10F).getActorFromModel()
+                boundX = 80F, boundY = 80F, positionX = 490F, positionY = 10F,listener = listeners.buyClickUpgrade(this)).getActorFromModel()
         group.addActor(amountActor)
         //PRICE TEXT
         priceActor = ActorModel(ActorModel.Companion.ActorTypes.TEXT_BUTTON_TYPE, Constants.paths.click_income_invisible_texture,
                 Constants.paths.click_income_invisible_texture, buttonText = price.toString(),
                 boundX = Constants.numbers.instrument_width, boundY = 80F, textAlign = Align.left,
-                textScale = 0.5F, positionX = 50F, positionY = 8F).getActorFromModel()
+                textScale = 0.5F, positionX = 50F, positionY = 8F,listener = listeners.buyClickUpgrade(this)).getActorFromModel()
         group.addActor(priceActor)
 
         return group

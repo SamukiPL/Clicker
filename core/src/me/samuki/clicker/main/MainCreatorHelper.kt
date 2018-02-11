@@ -30,7 +30,7 @@ class MainCreatorHelper(val listeners: MainListeners) : CreatorHelper() {
         val actorsList: MutableList<ActorModel> = ArrayList()
         actorsList.add(mainClickActor())
         actorsList.add(upgradeShopShowcaseButton())
-        actorsList.add(rewardIcon())
+       // actorsList.add(rewardIcon())
         actorsList.add(shopIcon())// Always LAST!!!
         return actorsList
     }
