@@ -63,7 +63,7 @@ class CoreLauncher(override val androidCommunicator: AndroidCommunicator) : Game
     }
 
     private fun gatherBackgroundIncome() {
-        var timeInMillis = (System.currentTimeMillis() - SharedPrefs.getInstance().prefs.getLong(Constants.prefs.last_time, 0) / Constants.numbers.background_penalty)
+        var timeInMillis = (System.currentTimeMillis() - SharedPrefs.getInstance().prefs.getLong(Constants.prefs.last_time, 0)) / Constants.numbers.background_penalty
         if (timeInMillis > Constants.numbers.max_background_multilayer)
             timeInMillis = Constants.numbers.max_background_multilayer
         IncomeHandlerImpl.getInstance().gatherBackgroundIncome(timeInMillis.toString())
