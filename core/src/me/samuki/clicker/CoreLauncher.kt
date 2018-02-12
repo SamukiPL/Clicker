@@ -3,16 +3,18 @@ package me.samuki.clicker
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import me.samuki.clicker.base.BasicMethods
 import me.samuki.clicker.base.Constants
 import me.samuki.clicker.base.IncomeHandlerImpl
+import me.samuki.clicker.base.SharedPrefs
 import me.samuki.clicker.base.interfaces.GameCommunicator
-import me.samuki.clicker.base.interfaces.communication.AndroidAdsCommunicator
-import me.samuki.clicker.base.interfaces.communication.SaveListener
+import me.samuki.clicker.base.interfaces.communication.AndroidCommunicator
+import me.samuki.clicker.base.interfaces.communication.InGameListener
 import me.samuki.clicker.main.MainScreen
 import me.samuki.clicker.shop.ShopScreen
 
-class CoreLauncher(override val androidAdsCommunicator: AndroidAdsCommunicator) : Game(), GameCommunicator {
+class CoreLauncher(override val androidCommunicator: AndroidCommunicator) : Game(), GameCommunicator, InGameListener {
+
+    override var isAdReady: Boolean = false
     override lateinit var batch: SpriteBatch
     override lateinit var camera: OrthographicCamera
 
@@ -38,6 +40,7 @@ class CoreLauncher(override val androidAdsCommunicator: AndroidAdsCommunicator) 
 
     private fun startIncome() {
         IncomeHandlerImpl
+        gatherBackgroundIncome()
     }
 
     override fun changeScreen(screenType: ScreenTypes) {
@@ -49,5 +52,20 @@ class CoreLauncher(override val androidAdsCommunicator: AndroidAdsCommunicator) 
                 this.setScreen(ShopScreen(this))
             }
         }
+    }
+
+    override fun playerWasRewarded() {
+        IncomeHandlerImpl.getInstance().doubleTheAmount()
+    }
+
+    override fun adIsReady(ready: Boolean) {
+        isAdReady = ready
+    }
+
+    private fun gatherBackgroundIncome() {
+        var timeInMillis = SharedPrefs.getInstance().prefs.getLong(Constants.prefs.last_time, 0) / Constants.numbers.background_penalty
+        if (timeInMillis > Constants.numbers.max_background_multilayer)
+            timeInMillis = Constants.numbers.max_background_multilayer
+        IncomeHandlerImpl.getInstance().gatherBackgroundIncome(timeInMillis.toString())
     }
 }

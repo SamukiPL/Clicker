@@ -37,11 +37,12 @@ class ShopPresenterImpl : ShopPresenter, ShopListeners {
         view?.addActorToStage(dataManager.loadShopList())
     }
 
-    override fun goBackToMainScreen(): EventListener {return object: ChangeListener() {
-        override fun changed(event: ChangeEvent?, actor: Actor?) {
-            view?.changeToMainScreen()
+    override fun goBackToMainScreen(): EventListener {
+        return object: ChangeListener() {
+            override fun changed(event: ChangeEvent?, actor: Actor?) {
+                view?.changeToMainScreen()
+            }
         }
-    }
     }
 
     override fun buyMoneyMaker(moneyMakerModel: MoneyMakerModel): EventListener {

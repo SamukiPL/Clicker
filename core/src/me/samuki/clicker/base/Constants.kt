@@ -31,6 +31,9 @@ class Constants {
             const val instrument_incrementation: Float = 0.075F
             const val numbers_before_shortening: Int = 6
             const val click_upgrade_divider: Int = 20
+            const val max_time_in_background: Long = 28800000
+            const val background_penalty: Int = 1500
+            const val max_background_multilayer: Long = max_time_in_background / background_penalty
         }
     }
 
@@ -89,6 +92,7 @@ class Constants {
             const val money_makers_bought: String = "money_maker_no_" + replace_mark
             const val money_makers_income: String = "money_maker_income_" + replace_mark
             const val sounds_volume: String = "volume"
+            const val last_time: String ="last_time"
         }
     }
 

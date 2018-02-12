@@ -1,6 +1,6 @@
 package me.samuki.clicker.base.interfaces.communication
 
 
-interface AndroidAdsCommunicator {
+interface AndroidCommunicator {
     fun showRewardedAd()
 }

@@ -78,6 +78,14 @@ class IncomeHandlerImpl private constructor() : IncomeHandler {
         this.amountTextRefresher = amountTextRefresher
     }
 
+    override fun doubleTheAmount() {
+        amount += amount
+    }
+
+    override fun gatherBackgroundIncome(seconds: String) {
+        amount += (income * BigInteger(seconds))
+    }
+
     private fun handleIncomeLoop() {
         Timer().scheduleAtFixedRate(object: TimerTask() {
                     override fun run() {

@@ -2,5 +2,7 @@
 <resources>
 
     <string name="app_name">Bracia Bolec Clicker</string>
+    <string name="notification_title">Zbierz swoje łupy</string>
+    <string name="notification_text">Bracia przez 8h nieustannie siali terror, czas sprawdzić ile udało im się zebrać!</string>
 
 </resources>

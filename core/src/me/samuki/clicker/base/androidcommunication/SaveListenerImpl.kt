@@ -13,6 +13,11 @@ class SaveListenerImpl : SaveListener {
         saveIncome()
     }
 
+    override fun saveLastTime(lastTime: Long) {
+        SharedPrefs.getInstance().prefs.putLong(Constants.prefs.last_time, lastTime)
+        SharedPrefs.getInstance().flush()
+    }
+
     private fun saveAmount() {
         val amount: String = IncomeHandlerImpl.getInstance().getAmountBigInteger().toString()
         SharedPrefs.getInstance().saveAmount(amount)

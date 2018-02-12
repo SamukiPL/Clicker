@@ -1,5 +1,7 @@
 package me.samuki.clicker;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,21 +17,20 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
-import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.Task;
 
 import org.jetbrains.annotations.Nullable;
 
+import me.samuki.clicker.base.Constants;
 import me.samuki.clicker.base.androidcommunication.SaveListenerImpl;
-import me.samuki.clicker.base.interfaces.communication.AndroidAdsCommunicator;
+import me.samuki.clicker.base.interfaces.communication.AndroidCommunicator;
+import me.samuki.clicker.base.interfaces.communication.InGameListener;
 import me.samuki.clicker.base.interfaces.communication.SaveListener;
 import me.samuki.clicker.interfaces.IGameServicesHelper;
 
 import static android.widget.RelativeLayout.ABOVE;
 import static android.widget.RelativeLayout.ALIGN_TOP;
 
-public class AndroidLauncher extends AndroidApplication implements AndroidAdsCommunicator {
+public class AndroidLauncher extends AndroidApplication implements AndroidCommunicator {
 	//Testowe zakomentowane
 	final String AD_UNIT_ID_BANNER = "ca-app-pub-9630376407798380/7006529159";
 	final String AD_UNIT_ID_INTERSTITIAL = "ca-app-pub-3940256099942544/1033173712";
@@ -38,6 +39,8 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 	private SaveListener saveListener;
 	private IGameServicesHelper gameServicesHelper;
 
+	private InGameListener inGameListener;
+
 	private View gameView;
 	private AdView adView;
 	private RewardedVideoAd rewardedAd;
@@ -45,11 +48,16 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		MobileAds.initialize(this,"ca-app-pub-9630376407798380~4791429353");
+
 		gameServicesHelper = new GameServicesHelper(this);
 		saveListener = new SaveListenerImpl();
-		MobileAds.initialize(this,"ca-app-pub-9630376407798380~4791429353");
+
+		CoreLauncher coreLauncher = new CoreLauncher(this);
+		inGameListener = coreLauncher;
+
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		gameView = initializeForView(new CoreLauncher(this), config);
+		gameView = initializeForView(coreLauncher, config);
 
 		RelativeLayout layout = new RelativeLayout(this);
 		RelativeLayout.LayoutParams gameViewParams = new RelativeLayout.LayoutParams(
@@ -96,7 +104,13 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 
             @Override
             public void onRewarded(@Nullable RewardItem p0) {
+                inGameListener.playerWasRewarded();
+                inGameListener.adIsReady(false);
+            }
 
+            @Override
+            public void onRewardedVideoAdLoaded() {
+                inGameListener.adIsReady(true);
             }
         });
         loadRewardedAd();
@@ -185,12 +199,14 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
 		rewardedAd.resume(this);
 		hideSystemUI();
 		gameServicesHelper.silentSignIn();
+        getPendingIntentAndStopAlarm((AlarmManager) getSystemService(ALARM_SERVICE));
 	}
 
     @Override
     protected void onPause() {
 	    rewardedAd.pause(this);
 	    saveListener.saveEverything();
+	    notifyAfterEightHours();
         super.onPause();
     }
 
@@ -222,4 +238,28 @@ public class AndroidLauncher extends AndroidApplication implements AndroidAdsCom
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
 	}
+
+	private PendingIntent getPendingIntentAndStopAlarm(AlarmManager alarmManager) {
+        Intent intent = new Intent(this, ReminderReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
+
+        if (alarmManager != null) {
+            alarmManager.cancel(pendingIntent);
+        }
+
+        return pendingIntent;
+
+    }
+
+	private void notifyAfterEightHours() {
+        long actualTime = System.currentTimeMillis();
+	    long showAfterThisTime = Constants.numbers.max_time_in_background;
+
+	    saveListener.saveLastTime(actualTime);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        if (alarmManager != null) {
+            alarmManager.set(AlarmManager.RTC_WAKEUP, actualTime + showAfterThisTime, getPendingIntentAndStopAlarm(alarmManager));
+        }
+    }
 }

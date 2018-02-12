@@ -1,7 +1,6 @@
 package me.samuki.clicker.main
 
 import com.badlogic.gdx.scenes.scene2d.actions.Actions
-import com.badlogic.gdx.scenes.scene2d.actions.Actions.run
 import com.badlogic.gdx.scenes.scene2d.ui.Button
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane
 import com.badlogic.gdx.scenes.scene2d.ui.WidgetGroup
@@ -72,8 +71,10 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
     }
 
     override fun showRewardedAdDialog() {
-        rewardedAdDialog.x = 0F
-        rewardedAdDialog.y = Constants.numbers.screen_height - 600F
+        if (game.isAdReady) {
+            rewardedAdDialog.x = 0F
+            rewardedAdDialog.y = Constants.numbers.screen_height - 600F
+        }
     }
 
     override fun hideRewardedAdDialog() {
@@ -82,7 +83,7 @@ class MainScreen(game: GameCommunicator) : BaseScreen(game), MainView {
     }
 
     override fun showAd() {
-        game.androidAdsCommunicator.showRewardedAd()
+        game.androidCommunicator.showRewardedAd()
         hideRewardedAdDialog()
     }
 }

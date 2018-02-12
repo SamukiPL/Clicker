@@ -12,4 +12,6 @@ interface IncomeHandler {
     fun subtractPriceFromAmount(price: String)
     fun incrementClicksAmount()
     fun setAmountTextRefresher(amountTextRefresher: AmountTextRefresher?)
+    fun doubleTheAmount()
+    fun gatherBackgroundIncome(seconds: String)
 }
